@@ -1,0 +1,283 @@
+# Sweets by Ayesha — Cursor AI Rules
+# Halal home bakery website. Next.js 16 App Router + TypeScript + Tailwind v4.
+# Adapted from spend-sense-web conventions.
+
+---
+
+## AI Persona
+
+You are an expert senior full-stack engineer specializing in:
+- **Next.js 16** (App Router, Server Components)
+- **React 19** (Server Components, concurrent features)
+- **TypeScript 5** (strict mode, no `any`)
+- **Tailwind CSS v4** (utility-first, mobile-first)
+
+You produce clean, concise, production-ready code. You think step-by-step,
+prefer functional and declarative patterns, and never leave placeholders or TODOs.
+
+---
+
+## Project Context
+
+**Sweets by Ayesha** is a marketing/order-inquiry website for a halal-certified
+home bakery near Schaumburg, IL. Products include cake pops, rice krispie treats,
+and custom baked goods.
+
+- Pure static marketing site — no auth, no database
+- Order inquiries via contact form (logs to console for now, email later)
+- Brand: Warm cream background, caramel primary, berry secondary, honey gold accent
+- Design language: Warm, inviting, editorial — food photography forward
+- Target: Mobile-first (TikTok/Instagram audience), SEO-optimized
+
+---
+
+## Project Structure
+
+```
+app/
+├── layout.tsx              # Root layout (Navbar + Footer)
+├── page.tsx                # Home (hero, featured treats, about teaser)
+├── menu/page.tsx           # Our Treats (photo grid)
+├── about/page.tsx          # About Ayesha
+├── order/page.tsx          # Order inquiry
+├── order/ui/OrderForm.tsx  # Controlled order form
+├── globals.css             # CSS variables + Tailwind v4 directives
+├── sitemap.ts
+├── robots.ts
+└── opengraph-image.tsx     # Dynamic OG image (ImageResponse)
+
+app/components/
+├── Navbar.tsx              # Sticky nav with mobile hamburger
+├── Footer.tsx              # Links, social, halal badge
+├── HeroSection.tsx         # Reusable hero with image background
+└── TreatCard.tsx           # Menu item card
+
+public/
+└── placeholder.jpg         # Temporary image placeholder
+```
+
+---
+
+## Design System
+
+### CSS Variables (defined in globals.css — use these via Tailwind tokens)
+```
+--background: #FBF7F0   → bg-background, text-background
+--surface:    #F2E8D9   → bg-surface
+--primary:    #C4722A   → bg-primary (caramel/amber CTA buttons)
+--secondary:  #8B4A62   → bg-secondary (berry/mauve)
+--accent:     #D4A853   → bg-accent (honey gold)
+--text:       #2C1810   → text-text
+```
+
+### Typography
+- **Display**: Fraunces (`font-serif`) — headings, brand name
+- **Body**: DM Sans (`font-sans`) — all body text
+
+### Class Utility
+The project uses a local `cx()` helper in Navbar.tsx for conditional classes.
+When adding new components that need conditional class merging, import or
+replicate this pattern:
+```typescript
+function cx(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ')
+}
+```
+
+---
+
+## TypeScript Rules
+
+- **Never use `any`** — use `unknown` + narrowing, or proper interfaces
+- `tsconfig.json` must stay `"strict": true`
+- Prefer `interface` for object shapes; `type` for unions and primitives
+- Use `import type` for type-only imports: `import type { Metadata } from 'next'`
+- Use `const` assertions for static data: `as const`
+- No enums — use `const` maps instead
+- Use the `function` keyword for named components and helpers
+
+```typescript
+// Component props — always define an interface
+interface TreatCardProps {
+  title: string
+  description: string
+  imageSrc?: string
+  className?: string
+}
+
+// Union type example
+type OrderStatus = 'idle' | 'submitting' | 'success' | 'error'
+```
+
+---
+
+## React & Next.js Rules
+
+### Server vs Client Components
+- **Default to Server Components** — no `'use client'` unless strictly required
+- Use `'use client'` ONLY for: `useState`, `useEffect`, `useRef`, event handlers,
+  browser APIs, or `usePathname`/`useRouter`
+- Keep client components small and leaf-level
+- Page files (`page.tsx`) should always be server components
+
+### File Structure Order (every component file)
+```tsx
+'use client' // Only if needed
+
+// 1. External imports
+// 2. Internal imports
+// 3. Types / Interfaces
+// 4. Module-level constants (static data, variants)
+// 5. Exported component function
+//    a. Hooks (state, refs, effects)
+//    b. Derived values
+//    c. Handlers
+//    d. Return JSX
+```
+
+### Next.js Specific
+- `next/image` for ALL images — never bare `<img>`
+- `next/link` for ALL internal navigation — never `<a href="/...">` internally
+- `next/font` for fonts (already configured in layout.tsx — do not re-import)
+- `export const metadata` for SEO on every page — never manual `<head>` tags
+- `metadataBase` is set in layout.tsx — page metadata inherits it
+
+---
+
+## Tailwind v4 Rules
+
+- **Tailwind-only** — no CSS modules, no inline style objects for static values
+- **Inline styles only for** computed/dynamic values (e.g. `style={{ width: `${pct}%` }}`)
+- **Mobile-first breakpoints**: start with mobile, layer `sm:`, `md:`, `lg:`
+- Use semantic color tokens, not hardcoded hex values in classNames
+
+```tsx
+// Correct — semantic tokens
+<div className="bg-background text-text">
+<button className="bg-primary text-background">
+
+// Wrong — hardcoded hex
+<div className="bg-[#FBF7F0]">
+```
+
+### Responsive Pattern
+```tsx
+// Text
+"text-2xl sm:text-3xl lg:text-4xl font-serif"
+// Spacing
+"py-10 sm:py-14 lg:py-20"
+// Grid
+"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+```
+
+### Interactive States
+```tsx
+// Buttons
+"transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+// Links
+"text-text/80 hover:text-text transition"
+```
+
+---
+
+## SEO Rules
+
+### Metadata API (use on every page)
+```typescript
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Page Title',   // layout template auto-appends site name
+  description: '150-160 char description with local keyword.',
+  openGraph: {
+    title: 'Full OG Title | Sweets by Ayesha',
+    description: 'OG description',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Full Twitter Title',
+    description: 'Twitter description',
+  },
+}
+```
+
+### Semantic HTML (required on every page)
+```tsx
+<main>
+  <section aria-labelledby="hero-heading">
+    <h1 id="hero-heading">...</h1>
+  </section>
+</main>
+```
+
+---
+
+## Accessibility Rules
+
+- `aria-label` on every icon-only interactive element
+- `aria-expanded` on toggles (mobile menu, accordions)
+- One `<h1>` per page, then `<h2>` for sections, `<h3>` for cards
+- All `next/image` must have meaningful `alt` text (not empty unless decorative)
+- External links: `target="_blank" rel="noopener noreferrer"`
+
+---
+
+## Never Do These
+
+```
+Never use `any` type
+Never use bare <img> — use next/image
+Never use bare <a href="/..."> for internal links — use next/link
+Never create CSS files — use Tailwind only
+Never use inline style objects for static values
+Never add 'use client' to page.tsx files unless absolutely required
+Never skip aria-label on icon-only interactive elements
+Never hardcode hex colors in Tailwind classes — use design tokens
+Never leave TODO comments or placeholder implementations
+Never manually write <head> SEO tags — use Metadata API
+Never commit .env, .next, node_modules
+```
+
+---
+
+## Always Do These
+
+```
+Run `npm run dev` and verify no TypeScript errors before reporting done
+Test responsive design at 375px, 768px, 1280px
+Use semantic HTML (section, main, nav, header, footer, article)
+Define interface for all component props
+Use import type for type-only imports
+Add meaningful alt text to all non-decorative images
+Use named exports for components (default export only for pages/layouts)
+Pass className prop through to allow style extension where appropriate
+Keep page.tsx files as server components
+```
+
+---
+
+## Git Commit Convention
+
+Format: `<type>(<scope>): <subject>`
+
+| Type | Use for |
+|------|---------|
+| `feat` | New feature or section |
+| `fix` | Bug fix |
+| `refactor` | Code improvement |
+| `style` | Tailwind/visual changes |
+| `perf` | Performance improvement |
+| `a11y` | Accessibility improvement |
+| `seo` | SEO/metadata changes |
+| `chore` | Config, deps, tooling |
+
+Examples:
+```
+feat(menu): add treat photo grid with responsive layout
+fix(navbar): correct mobile menu z-index
+seo(layout): add OG image and Twitter card metadata
+a11y(footer): add aria-label to social icon links
+perf(hero): add priority and blur placeholder to hero image
+```
