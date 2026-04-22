@@ -4,13 +4,13 @@ import { HeroSection } from "@/app/components/HeroSection";
 import { TreatCard } from "@/app/components/TreatCard";
 
 export const metadata: Metadata = {
-  title: "Homemade Halal Treats | Order Online",
+  title: { absolute: "thesweetsbyayesha" },
   description:
-    "Handcrafted halal-certified baked goods near Schaumburg, IL. Cake pops, rice krispie treats, mango shooter cups, and custom orders. Made fresh to order with love.",
+    "Handcrafted baked goods made with halal ingredients near Schaumburg, IL. Cake pops, rice krispie treats, mango shooter cups, and custom orders. Made fresh to order with love.",
   openGraph: {
     title: "The Sweets by Ayesha | Homemade Halal Treats",
     description:
-      "Handcrafted with love. Halal certified. Local Schaumburg-area pickup and delivery options.",
+      "Handcrafted with love. Made with halal ingredients. Local Schaumburg-area pickup and delivery options.",
     type: "website",
   },
   twitter: {
@@ -27,7 +27,7 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection
         eyebrow="Schaumburg, IL • Pickup & delivery options"
-        heading="Handcrafted with love. Halal certified."
+        heading="Handcrafted with love. Made with halal ingredients."
         subtext="Cake pops, rice krispie treats, and custom baked goods made to order—perfect for birthdays, weddings, school events, and sweet surprises."
         ctaLabel="Order Now"
         ctaHref="/order"
@@ -101,7 +101,7 @@ export default function Home() {
             <div className="rounded-3xl border border-black/5 bg-background p-6 shadow-sm">
               <div className="space-y-2">
                 <div className="text-sm font-semibold text-text">
-                  Social (placeholders)
+                  Follow along
                 </div>
                 <p className="text-sm leading-6 text-text/80">
                   Follow along for behind-the-scenes baking, new drops, and

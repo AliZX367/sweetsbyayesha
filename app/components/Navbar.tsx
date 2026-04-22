@@ -27,6 +27,7 @@ export function Navbar() {
     if (!pathname) return "/";
     if (pathname.startsWith("/menu")) return "/menu";
     if (pathname.startsWith("/about")) return "/about";
+    if (pathname.startsWith("/order")) return "/order";
     return "/";
   }, [pathname]);
 
@@ -38,9 +39,9 @@ export function Navbar() {
             <Image
               src="/brand-logo.png"
               alt="The Sweets by Ayesha"
-              width={48}
-              height={48}
-              className="shrink-0 rounded-full object-cover"
+              width={64}
+              height={64}
+              className="h-14 w-14 shrink-0 rounded-full object-cover sm:h-16 sm:w-16"
               priority
             />
             <span className="font-serif text-lg tracking-tight text-text">
@@ -48,7 +49,7 @@ export function Navbar() {
             </span>
           </Link>
           <span className="hidden shrink-0 rounded-full bg-surface px-2 py-1 text-xs font-medium text-text/80 sm:inline">
-            Halal certified
+            Made with halal ingredients
           </span>
         </div>
 

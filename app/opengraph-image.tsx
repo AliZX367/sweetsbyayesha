@@ -30,7 +30,7 @@ export default function OgImage() {
             textTransform: "uppercase",
           }}
         >
-          Halal Certified · Schaumburg, IL
+          Made with Halal Ingredients · Schaumburg, IL
         </div>
         <div
           style={{
