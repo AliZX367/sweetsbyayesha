@@ -102,25 +102,6 @@ const howToOrderSteps = [
   },
 ] as const;
 
-const faqItems = [
-  {
-    q: "How far in advance should I order?",
-    a: "At least 5–7 days for most orders; 2+ weeks for large events.",
-  },
-  {
-    q: "What is your minimum order?",
-    a: "Minimums vary by item — just mention your quantity in the inquiry.",
-  },
-  {
-    q: "Do you deliver?",
-    a: "Local delivery is available for some areas; pickup near Schaumburg is always an option.",
-  },
-  {
-    q: "Are your ingredients halal?",
-    a: "Yes — all ingredients are sourced to be halal. No pork, no alcohol.",
-  },
-] as const;
-
 export default function MenuPage() {
   return (
     <div>
@@ -188,37 +169,13 @@ export default function MenuPage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-        <h2 className="font-serif text-xl tracking-tight text-text sm:text-2xl">
-          FAQ
-        </h2>
-        <div className="mt-4 divide-y divide-black/10 rounded-3xl border border-black/5 bg-background px-4 shadow-sm sm:px-6">
-          {faqItems.map((item) => (
-            <details
-              key={item.q}
-              className="py-4 open:[&_summary_svg]:rotate-180 [&_summary::-webkit-details-marker]:hidden"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-text">
-                {item.q}
-                <span className="shrink-0 text-text/50" aria-hidden>
-                  <svg
-                    className="transition-transform duration-200"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </span>
-              </summary>
-              <p className="mt-2 text-sm leading-6 text-text/80">{item.a}</p>
-            </details>
-          ))}
-        </div>
+        <p className="mt-4 text-sm text-text/80">
+          Have questions?{" "}
+          <Link href="/faq" className="font-semibold text-text underline">
+            Visit our FAQ
+          </Link>
+          .
+        </p>
 
         <div className="mt-10 rounded-3xl border border-black/5 bg-surface p-6">
           <p className="text-sm leading-6 text-text/80">

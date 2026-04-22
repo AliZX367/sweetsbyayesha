@@ -80,6 +80,12 @@ export function Footer() {
             <Link className="text-text/80 hover:text-text" href="/about">
               About
             </Link>
+            <Link className="text-text/80 hover:text-text" href="/faq">
+              FAQ
+            </Link>
+            <Link className="text-text/80 hover:text-text" href="/reviews">
+              Reviews
+            </Link>
             <Link className="text-text/80 hover:text-text" href="/order">
               Order Now
             </Link>

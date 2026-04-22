@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/menu", label: "Our Treats" },
   { href: "/about", label: "About" },
+  { href: "/faq", label: "FAQ" },
 ] as const;
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -53,6 +54,7 @@ export function Navbar() {
     if (!pathname) return "/";
     if (pathname.startsWith("/menu")) return "/menu";
     if (pathname.startsWith("/about")) return "/about";
+    if (pathname.startsWith("/faq")) return "/faq";
     if (pathname.startsWith("/order")) return "/order";
     return "/";
   }, [pathname]);

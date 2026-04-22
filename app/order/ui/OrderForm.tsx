@@ -1,6 +1,7 @@
 "use client";
 
 import { track } from "@vercel/analytics";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import {
   getActiveItem,
@@ -123,8 +124,8 @@ function buildOrderMailto(
 }
 
 export function OrderForm() {
+  const router = useRouter();
   const [form, setForm] = useState<OrderFormState>(initialState);
-  const [showMailHint, setShowMailHint] = useState(false);
 
   const activeItem = useMemo(
     () => getActiveItem(form.selectedItem),
@@ -188,12 +189,26 @@ export function OrderForm() {
     };
 
     const href = buildOrderMailto(payload, activeItem);
-    setShowMailHint(true);
+
+    const a = document.createElement("a");
+    a.href = href;
+    a.click();
+
     track("inquiry_sent", {
       item: payload.selectedItem,
       quantity: payload.quantity,
     });
-    window.location.assign(href);
+
+    const params = new URLSearchParams({
+      name: payload.name,
+      item: payload.selectedItem,
+      qty: String(payload.quantity),
+      date: payload.dateNeeded,
+    });
+
+    window.setTimeout(() => {
+      router.push(`/order/confirmation?${params.toString()}`);
+    }, 600);
   }
 
   const stepperBtn =
@@ -204,24 +219,6 @@ export function OrderForm() {
 
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
-      {showMailHint ? (
-        <div
-          role="status"
-          className="rounded-2xl border border-black/10 bg-background px-4 py-3 text-sm leading-6 text-text/90"
-        >
-          <span className="font-semibold text-text">Check your email app.</span>{" "}
-          A draft message to{" "}
-          <a
-            className="font-semibold text-text underline"
-            href={`mailto:${ORDER_INQUIRY_EMAIL}`}
-          >
-            {ORDER_INQUIRY_EMAIL}
-          </a>{" "}
-          should have opened—review it and tap <strong>Send</strong>. If nothing
-          opened, copy your details and email that address manually.
-        </div>
-      ) : null}
-
       <p className="text-sm leading-6 text-text/80">
         Fill this out, then <strong className="text-text">Continue to email</strong>{" "}
         — your mail app opens with everything filled in so you can send it when
