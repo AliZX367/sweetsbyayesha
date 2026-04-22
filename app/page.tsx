@@ -1,20 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FadeIn } from "@/app/components/FadeIn";
 import { HeroSection } from "@/app/components/HeroSection";
+import { ReviewsSection } from "@/app/components/ReviewsSection";
 import { TreatCard } from "@/app/components/TreatCard";
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+} from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Homemade Halal Treats | Order Online",
+  title: { absolute: "thesweetsbyayesha" },
   description:
-    "Handcrafted halal-certified baked goods near Schaumburg, IL. Cake pops, rice krispie treats, mango shooter cups, and custom orders. Made fresh to order with love.",
+    "Handcrafted halal treats near Schaumburg, IL — cake pops, rice krispie treats, mango cups & custom baked goods. Made fresh to order.",
+  alternates: {
+    canonical: "https://sweetsbyayesha.com",
+  },
   openGraph: {
-    title: "The Sweets by Ayesha | Homemade Halal Treats",
-    description:
-      "Handcrafted with love. Halal certified. Local Schaumburg-area pickup and delivery options.",
     type: "website",
+    url: SITE_URL,
+    title: `${SITE_NAME} | Halal treats Schaumburg, IL`,
+    description:
+      "Handcrafted halal-certified sweets near Schaumburg — cake pops, rice krispie treats, custom orders, pickup & delivery.",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — halal bakery near Schaumburg, Illinois`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: TWITTER_SITE,
+    title: `${SITE_NAME} | Halal treats Schaumburg, IL`,
+    description:
+      "Handcrafted halal-certified sweets near Schaumburg — cake pops, rice krispie treats & custom orders.",
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {
     index: true,
@@ -27,15 +54,99 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection
         eyebrow="Schaumburg, IL • Pickup & delivery options"
-        heading="Handcrafted with love. Halal certified."
-        subtext="Cake pops, rice krispie treats, and custom baked goods made to order—perfect for birthdays, weddings, school events, and sweet surprises."
+        heading="Celebrate with something sweet."
+        subtext="Made-to-order desserts for birthdays, weddings & every celebration in between — fresh, beautiful, and crafted with halal ingredients near Schaumburg, IL."
         ctaLabel="Order Now"
         ctaHref="/order"
         imageSrc="/images/hero-bg.jpg"
         imageAlt="Elegant dessert table with cake and pink floral arrangements"
       />
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+      <FadeIn delay={0}>
+        <section className="border-y border-black/5 bg-surface">
+          <div className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-text/80">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0 text-primary"
+                aria-hidden="true"
+              >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <path d="m9 11 3 3L22 4" />
+              </svg>
+              Made with halal ingredients
+            </div>
+            <div className="flex items-center gap-2 text-sm font-medium text-text/80">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0 text-primary"
+                aria-hidden="true"
+              >
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                <path d="M5 3v4" />
+                <path d="M19 17v4" />
+                <path d="M3 5h4" />
+                <path d="M17 19h4" />
+              </svg>
+              Made fresh to order
+            </div>
+            <div className="flex items-center gap-2 text-sm font-medium text-text/80">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0 text-primary"
+                aria-hidden="true"
+              >
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Schaumburg, IL pickup
+            </div>
+            <div className="flex items-center gap-2 text-sm font-medium text-text/80">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0 text-primary"
+                aria-hidden="true"
+              >
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              </svg>
+              Custom orders welcome
+            </div>
+          </div>
+        </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn delay={100}>
+        <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
         <div className="flex items-end justify-between gap-6">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
@@ -61,6 +172,8 @@ export default function Home() {
             imageSrc="/images/cake-pops.jpg"
             imageAlt="Colorful decorated cake pops on display"
             priority
+            pricing="From $36 / dozen"
+            flippable
           />
           <TreatCard
             title="Rice Krispie Treats"
@@ -68,6 +181,8 @@ export default function Home() {
             imageSrc="/images/oreo-rice-krispie-treats.jpg"
             imageAlt="Square Oreo rice krispies treats with cookie chunks on a bright white surface"
             priority
+            pricing="From $18 / half dozen"
+            flippable
           />
           <TreatCard
             title="Custom Orders"
@@ -75,13 +190,52 @@ export default function Home() {
             imageSrc="/images/choc-strawberries.jpg"
             imageAlt="Gourmet chocolate-covered strawberries with decorative toppings"
             priority
+            pricing="Pricing on request"
+            flippable
           />
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
-      <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
+      <FadeIn delay={0}>
+        <ReviewsSection />
+      </FadeIn>
+
+      <FadeIn delay={0}>
+        <section className="bg-background">
+          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+            <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
+              Perfect for every occasion
+            </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
+            From school events to weddings — we&apos;ve got your celebration
+            covered.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+              🎂 Birthdays
+            </span>
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+              💍 Weddings &amp; Engagements
+            </span>
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+              🌙 Eid &amp; Ramadan
+            </span>
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+              🎓 Graduations
+            </span>
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+              🎉 Custom Events
+            </span>
+          </div>
+        </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn delay={0}>
+        <section className="bg-surface">
+          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+            <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <div className="space-y-3">
               <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
                 Made fresh. Made with heart.
@@ -101,7 +255,7 @@ export default function Home() {
             <div className="rounded-3xl border border-black/5 bg-background p-6 shadow-sm">
               <div className="space-y-2">
                 <div className="text-sm font-semibold text-text">
-                  Social (placeholders)
+                  Follow along
                 </div>
                 <p className="text-sm leading-6 text-text/80">
                   Follow along for behind-the-scenes baking, new drops, and
@@ -131,7 +285,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </FadeIn>
     </div>
   );
 }

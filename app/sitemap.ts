@@ -1,25 +1,33 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://sweetsbyayesha.com";
   const now = new Date();
 
   return [
     {
-      url: `${baseUrl}/`,
+      url: `${SITE_URL}/`,
       lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
     },
     {
-      url: `${baseUrl}/menu`,
+      url: `${SITE_URL}/menu`,
       lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${SITE_URL}/order`,
       lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
     },
     {
-      url: `${baseUrl}/order`,
+      url: `${SITE_URL}/about`,
       lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
     },
   ];
 }

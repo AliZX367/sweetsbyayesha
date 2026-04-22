@@ -3,17 +3,37 @@ import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/app/components/Footer";
 import { Navbar } from "@/app/components/Navbar";
+import { Analytics } from "@vercel/analytics/next";
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+} from "@/lib/site-config";
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "Bakery",
-  name: "The Sweets by Ayesha",
-  description: "Halal-certified homemade baked goods near Schaumburg, IL",
-  url: "https://sweetsbyayesha.com",
+  "@id": `${SITE_URL}/#bakery`,
+  name: SITE_NAME,
+  description:
+    "Halal-certified homemade baked goods near Schaumburg, IL — cake pops, rice krispie treats, mango dessert cups, chocolate strawberries, and custom orders.",
+  url: SITE_URL,
+  image: `${SITE_URL}/brand-logo.png`,
+  logo: `${SITE_URL}/brand-logo.png`,
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 42.0334,
+    longitude: -88.0834,
+  },
   areaServed: {
     "@type": "City",
     name: "Schaumburg",
     addressRegion: "IL",
+    containedInPlace: {
+      "@type": "State",
+      name: "Illinois",
+    },
   },
   servesCuisine: ["Halal", "Desserts", "Baked Goods"],
   sameAs: [
@@ -22,7 +42,7 @@ const localBusinessJsonLd = {
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Halal Baked Goods",
+    name: "Halal baked goods",
     itemListElement: [
       { "@type": "Offer", itemOffered: { "@type": "Product", name: "Cake Pops" } },
       {
@@ -31,7 +51,7 @@ const localBusinessJsonLd = {
       },
       {
         "@type": "Offer",
-        itemOffered: { "@type": "Product", name: "Mango Dessert Shooter Cups" },
+        itemOffered: { "@type": "Product", name: "Mango Dessert Cups" },
       },
       {
         "@type": "Offer",
@@ -39,6 +59,18 @@ const localBusinessJsonLd = {
       },
     ],
   },
+} as const;
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  description:
+    "Halal-certified homemade treats near Schaumburg, IL — cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom orders.",
+  publisher: { "@id": `${SITE_URL}/#bakery` },
+  inLanguage: "en-US",
 } as const;
 
 const display = Fraunces({
@@ -52,50 +84,57 @@ const body = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "The Sweets by Ayesha | Halal Bakery Schaumburg IL",
-    template: "%s | The Sweets by Ayesha",
+    default: "thesweetsbyayesha",
+    template: "%s | thesweetsbyayesha",
   },
+  applicationName: SITE_NAME,
   description:
-    "Halal-certified homemade treats near Schaumburg, IL. Cake pops, rice krispie treats, mango dessert cups & custom baked goods. Order online for pickup or local delivery.",
+    "Halal-certified homemade treats in Schaumburg, IL: cake pops, rice krispie treats, mango dessert cups & custom orders. Pickup and local delivery options.",
   keywords: [
-    "halal bakery Schaumburg IL",
-    "halal cake pops Chicago",
-    "halal desserts Illinois",
+    "halal bakery Schaumburg",
+    "halal cake pops Illinois",
     "custom cake pops Schaumburg",
     "rice krispie treats halal",
-    "mango dessert cups Chicago",
-    "home bakery Schaumburg",
-    "The Sweets by Ayesha",
-    "halal sweets Chicago suburbs",
-    "Muslim bakery Illinois",
+    "chocolate strawberries halal",
+    "thesweetsbyayesha",
+    "home bakery Chicago suburbs",
   ],
-  metadataBase: new URL("https://sweetsbyayesha.com"),
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   openGraph: {
-    title: "The Sweets by Ayesha | Halal Bakery Schaumburg IL",
+    title: `${SITE_NAME} | Halal bakery Schaumburg, IL`,
     description:
-      "Handcrafted halal-certified treats near Schaumburg, IL: cake pops, rice krispie treats, and custom baked goods.",
+      "Handcrafted halal-certified treats near Schaumburg: cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom orders.",
     type: "website",
-    siteName: "The Sweets by Ayesha",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [
       {
-        url: "/opengraph-image",
+        url: DEFAULT_OG_IMAGE_PATH,
         width: 1200,
         height: 630,
-        alt: "The Sweets by Ayesha — Halal Bakery Schaumburg IL",
+        alt: `${SITE_NAME} — halal treats near Schaumburg, IL`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Sweets by Ayesha | Halal Bakery Schaumburg IL",
+    site: TWITTER_SITE,
+    title: `${SITE_NAME} | Halal bakery Schaumburg, IL`,
     description:
-      "Handcrafted halal-certified treats near Schaumburg, IL. Cake pops, rice krispie treats & custom baked goods.",
-    images: ["/opengraph-image"],
+      "Handcrafted halal-certified treats near Schaumburg: cake pops, rice krispie treats & custom baked goods.",
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
@@ -111,11 +150,15 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-text">
         <script type="application/ld+json">
-          {JSON.stringify(localBusinessJsonLd)}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [localBusinessJsonLd, websiteJsonLd],
+          })}
         </script>
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

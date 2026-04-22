@@ -1,0 +1,107 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "The Sweets by Ayesha The Sweets by Ayesha" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "The Sweets by Ayesha" [ref=e6]
+          - generic [ref=e7]: The Sweets by Ayesha
+        - generic [ref=e8]: Halal certified
+      - navigation "Primary" [ref=e9]:
+        - link "Home" [ref=e10] [cursor=pointer]:
+          - /url: /
+        - link "Our Treats" [ref=e11] [cursor=pointer]:
+          - /url: /menu
+        - link "About" [ref=e12] [cursor=pointer]:
+          - /url: /about
+        - link "Order Now" [ref=e13] [cursor=pointer]:
+          - /url: /order
+  - main [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - img "Elegant dessert table with cake and pink floral arrangements" [ref=e18]
+        - generic [ref=e21]:
+          - generic [ref=e22]: Schaumburg, IL • Pickup & delivery options
+          - heading "Handcrafted with love. Halal certified." [level=1] [ref=e24]
+          - paragraph [ref=e25]: Cake pops, rice krispie treats, and custom baked goods made to order—perfect for birthdays, weddings, school events, and sweet surprises.
+          - generic [ref=e26]:
+            - link "Order Now" [ref=e27] [cursor=pointer]:
+              - /url: /order
+            - link "Browse Treats" [ref=e28] [cursor=pointer]:
+              - /url: /menu
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - heading "Featured treats" [level=2] [ref=e32]
+            - paragraph [ref=e33]: Choose a classic, or tell Ayesha your theme and flavor ideas—she’ll bring them to life.
+          - link "View menu" [ref=e34] [cursor=pointer]:
+            - /url: /menu
+        - generic [ref=e35]:
+          - article [ref=e36]:
+            - img "Colorful decorated cake pops on display" [ref=e38]
+            - generic [ref=e39]:
+              - heading "Cake Pops" [level=3] [ref=e40]
+              - paragraph [ref=e41]: Bite-sized cake pops dipped and decorated to match your theme—fun, clean, and always party-ready.
+          - article [ref=e42]:
+            - img "Square Oreo rice krispies treats with cookie chunks on a bright white surface" [ref=e44]
+            - generic [ref=e45]:
+              - heading "Rice Krispie Treats" [level=3] [ref=e46]
+              - paragraph [ref=e47]: Soft, gooey, and custom-dipped with sprinkles, drizzle, and details that photograph beautifully.
+          - article [ref=e48]:
+            - img "Gourmet chocolate-covered strawberries with decorative toppings" [ref=e50]
+            - generic [ref=e51]:
+              - heading "Custom Orders" [level=3] [ref=e52]
+              - paragraph [ref=e53]: From dessert tables to special requests—tell us what you’re celebrating and we’ll plan the perfect treats.
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - heading "Made fresh. Made with heart." [level=2] [ref=e58]
+          - paragraph [ref=e59]: Hi, I’m Ayesha—a home baker near Schaumburg, IL. Every order is made-to-order with care, so your treats taste as good as they look.
+          - link "Meet Ayesha" [ref=e60] [cursor=pointer]:
+            - /url: /about
+        - generic [ref=e62]:
+          - generic [ref=e63]: Social (placeholders)
+          - paragraph [ref=e64]: Follow along for behind-the-scenes baking, new drops, and custom designs.
+          - generic [ref=e65]:
+            - link "TikTok @thesweetsbyayesha (opens in a new tab)" [ref=e66] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@thesweetsbyayesha
+              - text: TikTok
+            - link "Instagram @thesweetsbyayesha (opens in a new tab)" [ref=e67] [cursor=pointer]:
+              - /url: https://www.instagram.com/thesweetsbyayesha
+              - text: Instagram
+  - contentinfo [ref=e68]:
+    - generic [ref=e69]:
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - img "The Sweets by Ayesha" [ref=e72]
+          - generic [ref=e73]: The Sweets by Ayesha
+        - paragraph [ref=e74]: Handcrafted with love. Halal certified.
+        - generic [ref=e75]: Halal Certified
+      - generic [ref=e77]:
+        - generic [ref=e78]: Explore
+        - navigation "Footer" [ref=e79]:
+          - link "Home" [ref=e80] [cursor=pointer]:
+            - /url: /
+          - link "Our Treats" [ref=e81] [cursor=pointer]:
+            - /url: /menu
+          - link "About" [ref=e82] [cursor=pointer]:
+            - /url: /about
+          - link "Order Now" [ref=e83] [cursor=pointer]:
+            - /url: /order
+      - generic [ref=e84]:
+        - generic [ref=e85]: Social
+        - generic [ref=e86]:
+          - link "TikTok (opens in a new tab)" [ref=e87] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@thesweetsbyayesha
+            - generic [ref=e88]:
+              - generic [ref=e89]: TikTok
+              - img [ref=e90]
+            - generic [ref=e92]: TikTok
+            - generic [ref=e93]: "@thesweetsbyayesha"
+          - link "Instagram (opens in a new tab)" [ref=e94] [cursor=pointer]:
+            - /url: https://www.instagram.com/thesweetsbyayesha
+            - generic [ref=e95]:
+              - generic [ref=e96]: Instagram
+              - img [ref=e97]
+            - generic [ref=e99]: Instagram
+            - generic [ref=e100]: "@thesweetsbyayesha"
+        - paragraph [ref=e101]: © 2026 The Sweets by Ayesha. All rights reserved.

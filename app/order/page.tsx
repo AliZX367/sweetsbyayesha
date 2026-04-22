@@ -1,25 +1,67 @@
 import type { Metadata } from "next";
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+} from "@/lib/site-config";
 import { ORDER_INQUIRY_EMAIL } from "./constants";
 import { OrderForm } from "./ui/OrderForm";
 
 export const metadata: Metadata = {
-  title: "Place an Order | Custom Halal Treats",
+  title: "Order halal custom treats",
   description:
-    "Order custom halal-certified treats from The Sweets by Ayesha. Send an order inquiry by email: cake pops, rice krispie treats, and more near Schaumburg, IL.",
+    "Place a halal-certified treat order near Schaumburg, IL. Email your date, theme & flavors — The Sweets by Ayesha replies to confirm pickup or delivery.",
+  alternates: {
+    canonical: "/order",
+  },
   openGraph: {
-    title: "Order Now | The Sweets by Ayesha",
-    description:
-      "Send your order details by email — we’ll get back to you to confirm.",
     type: "website",
+    url: `${SITE_URL}/order`,
+    title: `Order custom halal treats | ${SITE_NAME}`,
+    description:
+      "Email your order details for cake pops, rice krispie treats, dessert cups & custom celebration sweets — we confirm dates and pickup or delivery.",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: `Order halal treats from ${SITE_NAME}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: TWITTER_SITE,
+    title: `Order custom halal treats | ${SITE_NAME}`,
+    description:
+      "Email your order for halal cake pops, rice krispie treats & custom sweets — pickup & delivery near Schaumburg, IL.",
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {
     index: true,
     follow: true,
   },
 };
+
+const howItWorksSteps = [
+  {
+    title: "Fill out the form",
+    body:
+      "Tell us what you want, when you need it, and any special requests.",
+  },
+  {
+    title: "We get back to you",
+    body:
+      "Ayesha replies to confirm your order details and final pricing.",
+  },
+  {
+    title: "Pick up your treats",
+    body: "Collect near Schaumburg, IL on your agreed date.",
+  },
+] as const;
 
 export default function OrderPage() {
   return (
@@ -32,23 +74,39 @@ export default function OrderPage() {
         app. We&apos;ll reply to confirm details and timing.
       </p>
 
-      <div className="mt-6 rounded-2xl border border-black/10 bg-background px-4 py-3 text-sm leading-6 text-text/90 shadow-sm">
-        <span className="font-semibold text-text">Email (placeholder):</span>{" "}
+      <p className="mt-6 text-sm leading-6 text-text/80">
+        <span className="font-semibold text-text">Email:</span>{" "}
         <a
           className="font-medium text-text underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
           href={`mailto:${ORDER_INQUIRY_EMAIL}`}
         >
           {ORDER_INQUIRY_EMAIL}
         </a>
-        <span className="text-text/70">
-          {" "}
-          — replace this address in{" "}
-          <code className="rounded bg-surface px-1.5 py-0.5 text-xs text-text">
-            app/order/constants.ts
-          </code>{" "}
-          when you have your real inbox.
-        </span>
-      </div>
+      </p>
+
+      <section className="mt-10 rounded-3xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
+        <h2 className="font-serif text-xl tracking-tight text-text sm:text-2xl">
+          How it works
+        </h2>
+        <ol className="mt-6 grid gap-5 sm:grid-cols-3">
+          {howItWorksSteps.map((step, i) => (
+            <li
+              key={step.title}
+              className="rounded-2xl border border-black/5 bg-background p-4"
+            >
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-background">
+                {i + 1}
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-text">
+                {step.title}
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-text/80 sm:text-sm sm:leading-6">
+                {step.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <div className="mt-8 rounded-3xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
         <OrderForm />

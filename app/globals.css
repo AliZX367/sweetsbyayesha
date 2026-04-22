@@ -36,3 +36,39 @@ body {
 a {
   color: inherit;
 }
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes review-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.review-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  animation: review-marquee 50s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-marquee-outer {
+    overflow-x: auto;
+  }
+
+  .review-marquee-track {
+    animation: none;
+  }
+}

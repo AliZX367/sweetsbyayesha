@@ -60,11 +60,11 @@ export function Footer() {
             <div className="font-serif text-lg text-text">The Sweets by Ayesha</div>
           </div>
           <p className="text-sm leading-6 text-text/80">
-            Handcrafted with love. Halal certified.
+            Handcrafted with love. Made with halal ingredients.
           </p>
           <div className="inline-flex items-center gap-2 rounded-full bg-background px-3 py-1 text-xs font-semibold text-text">
             <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-            Halal Certified
+            Made with Halal Ingredients
           </div>
         </div>
 
