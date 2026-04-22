@@ -3,6 +3,7 @@ import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/app/components/Footer";
 import { Navbar } from "@/app/components/Navbar";
+import { Analytics } from "@vercel/analytics/next";
 import {
   DEFAULT_OG_IMAGE_PATH,
   SITE_NAME,
@@ -58,6 +59,18 @@ const localBusinessJsonLd = {
       },
     ],
   },
+} as const;
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  description:
+    "Halal-certified homemade treats near Schaumburg, IL — cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom orders.",
+  publisher: { "@id": `${SITE_URL}/#bakery` },
+  inLanguage: "en-US",
 } as const;
 
 const display = Fraunces({
@@ -137,11 +150,15 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-text">
         <script type="application/ld+json">
-          {JSON.stringify(localBusinessJsonLd)}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [localBusinessJsonLd, websiteJsonLd],
+          })}
         </script>
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

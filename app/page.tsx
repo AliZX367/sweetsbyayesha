@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FadeIn } from "@/app/components/FadeIn";
 import { HeroSection } from "@/app/components/HeroSection";
 import { ReviewsSection } from "@/app/components/ReviewsSection";
 import { TreatCard } from "@/app/components/TreatCard";
@@ -53,17 +54,18 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection
         eyebrow="Schaumburg, IL • Pickup & delivery options"
-        heading="Handcrafted with love. Made with halal ingredients."
-        subtext="Cake pops, rice krispie treats, and custom baked goods made to order—perfect for birthdays, weddings, school events, and sweet surprises."
+        heading="Celebrate with something sweet."
+        subtext="Made-to-order desserts for birthdays, weddings & every celebration in between — fresh, beautiful, and crafted with halal ingredients near Schaumburg, IL."
         ctaLabel="Order Now"
         ctaHref="/order"
         imageSrc="/images/hero-bg.jpg"
         imageAlt="Elegant dessert table with cake and pink floral arrangements"
       />
 
-      <section className="border-y border-black/5 bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <FadeIn delay={0}>
+        <section className="border-y border-black/5 bg-surface">
+          <div className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <div className="flex items-center gap-2 text-sm font-medium text-text/80">
               <svg
                 width="18"
@@ -140,9 +142,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+      <FadeIn delay={100}>
+        <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
         <div className="flex items-end justify-between gap-6">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
@@ -168,6 +172,8 @@ export default function Home() {
             imageSrc="/images/cake-pops.jpg"
             imageAlt="Colorful decorated cake pops on display"
             priority
+            pricing="From $36 / dozen"
+            flippable
           />
           <TreatCard
             title="Rice Krispie Treats"
@@ -175,6 +181,8 @@ export default function Home() {
             imageSrc="/images/oreo-rice-krispie-treats.jpg"
             imageAlt="Square Oreo rice krispies treats with cookie chunks on a bright white surface"
             priority
+            pricing="From $18 / half dozen"
+            flippable
           />
           <TreatCard
             title="Custom Orders"
@@ -182,17 +190,23 @@ export default function Home() {
             imageSrc="/images/choc-strawberries.jpg"
             imageAlt="Gourmet chocolate-covered strawberries with decorative toppings"
             priority
+            pricing="Pricing on request"
+            flippable
           />
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
-      <ReviewsSection />
+      <FadeIn delay={0}>
+        <ReviewsSection />
+      </FadeIn>
 
-      <section className="bg-background">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
-            Perfect for every occasion
-          </h2>
+      <FadeIn delay={0}>
+        <section className="bg-background">
+          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+            <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
+              Perfect for every occasion
+            </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
             From school events to weddings — we&apos;ve got your celebration
             covered.
@@ -215,11 +229,13 @@ export default function Home() {
             </span>
           </div>
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
-      <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
+      <FadeIn delay={0}>
+        <section className="bg-surface">
+          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+            <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <div className="space-y-3">
               <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
                 Made fresh. Made with heart.
@@ -269,7 +285,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </FadeIn>
     </div>
   );
 }

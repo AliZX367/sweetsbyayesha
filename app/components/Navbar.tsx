@@ -15,6 +15,25 @@ function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
+function CloseIconPaths() {
+  return (
+    <>
+      <path d="M18 6 6 18" />
+      <path d="M6 6l12 12" />
+    </>
+  );
+}
+
+function MenuIconPaths() {
+  return (
+    <>
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
+    </>
+  );
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -22,6 +41,13 @@ export function Navbar() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   const activeHref = useMemo(() => {
     if (!pathname) return "/";
@@ -95,54 +121,89 @@ export function Navbar() {
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            {open ? (
-              <>
-                <path d="M18 6 6 18" />
-                <path d="M6 6l12 12" />
-              </>
-            ) : (
-              <>
-                <path d="M4 7h16" />
-                <path d="M4 12h16" />
-                <path d="M4 17h16" />
-              </>
-            )}
+            {open ? <CloseIconPaths /> : <MenuIconPaths />}
           </svg>
         </button>
       </div>
 
-      {open ? (
-        <div className="border-t border-black/5 bg-background md:hidden">
-          <nav
-            className="mx-auto w-full max-w-6xl px-4 py-4 sm:px-6"
-            aria-label="Mobile"
+      <div
+        className={cx(
+          "fixed inset-0 z-40 flex flex-col bg-background transition-all duration-300 ease-in-out md:hidden",
+          open
+            ? "pointer-events-auto translate-x-0 opacity-100"
+            : "pointer-events-none translate-x-4 opacity-0"
+        )}
+        aria-hidden={!open}
+      >
+        <div className="flex items-center justify-between border-b border-black/5 px-4 py-4">
+          <Link href="/" className="inline-flex min-w-0 items-center gap-3">
+            <Image
+              src="/brand-logo.png"
+              alt="The Sweets by Ayesha"
+              width={64}
+              height={64}
+              className="h-14 w-14 shrink-0 rounded-full object-cover"
+              priority
+            />
+            <span className="font-serif text-lg tracking-tight text-text">
+              The Sweets by Ayesha
+            </span>
+          </Link>
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-full border border-black/10 bg-surface p-2 text-text shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
           >
-            <div className="flex flex-col gap-2">
-              {navLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className={cx(
-                    "rounded-2xl px-4 py-3 text-sm font-semibold transition",
-                    activeHref === l.href
-                      ? "bg-surface text-text"
-                      : "text-text/80 hover:bg-surface hover:text-text"
-                  )}
-                >
-                  {l.label}
-                </Link>
-              ))}
-              <Link
-                href="/order"
-                className="mt-1 inline-flex items-center justify-center rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                Order Now
-              </Link>
-            </div>
-          </nav>
+            <span className="sr-only">Close menu</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <CloseIconPaths />
+            </svg>
+          </button>
         </div>
-      ) : null}
+
+        <nav
+          className="flex flex-1 flex-col justify-center px-4 sm:px-6"
+          aria-label="Mobile"
+        >
+          <div className="flex flex-col gap-2">
+            {navLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={cx(
+                  "w-full rounded-2xl px-4 py-4 text-center text-lg font-semibold transition",
+                  activeHref === l.href
+                    ? "bg-surface text-text"
+                    : "text-text/80 hover:bg-surface hover:text-text"
+                )}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              href="/order"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-primary px-4 py-4 text-base font-semibold text-background shadow-sm transition hover:brightness-95"
+            >
+              Order Now
+            </Link>
+          </div>
+        </nav>
+
+        <div className="border-t border-black/5 px-6 py-6 text-center text-xs text-text/50">
+          The Sweets by Ayesha · Schaumburg, IL
+        </div>
+      </div>
     </header>
   );
 }
-

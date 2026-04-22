@@ -1,18 +1,44 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TreatCard } from "@/app/components/TreatCard";
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+} from "@/lib/site-config";
 
 export const metadata: Metadata = {
+  title: "Halal cake pops & custom treats menu",
   description:
-    "Browse our menu of treats made with halal ingredients: custom cake pops, rice krispie treats, mango dessert shooter cups, chocolate strawberries, and custom orders near Schaumburg, IL.",
+    "Halal-certified menu near Schaumburg, IL: cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & fully custom dessert orders.",
+  alternates: {
+    canonical: "/menu",
+  },
   openGraph: {
-    title: "Our Treats | The Sweets by Ayesha",
-    description:
-      "Browse cake pops, rice krispie treats, mango dessert shooter cups, chocolate strawberries, and custom orders made with halal ingredients near Schaumburg, IL.",
     type: "website",
+    url: `${SITE_URL}/menu`,
+    title: `Halal treat menu | ${SITE_NAME}`,
+    description:
+      "Browse halal cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom celebration orders.",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} treat menu — halal cake pops & more`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: TWITTER_SITE,
+    title: `Halal treat menu | ${SITE_NAME}`,
+    description:
+      "Browse halal cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom orders.",
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {
     index: true,

@@ -1,13 +1,20 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import { useMemo, useState } from "react";
-import { ORDER_INQUIRY_EMAIL } from "../constants";
+import {
+  getActiveItem,
+  MENU_ITEMS,
+  type MenuItem,
+  ORDER_INQUIRY_EMAIL,
+} from "../constants";
 
 type OrderFormState = {
   name: string;
   email: string;
   phone: string;
-  orderDetails: string;
+  selectedItem: string;
+  quantity: number;
   dateNeeded: string;
   specialRequests: string;
 };
@@ -16,7 +23,8 @@ const initialState: OrderFormState = {
   name: "",
   email: "",
   phone: "",
-  orderDetails: "",
+  selectedItem: "",
+  quantity: 0,
   dateNeeded: "",
   specialRequests: "",
 };
@@ -42,24 +50,71 @@ function FieldLabel({
 const inputBase =
   "w-full rounded-2xl border border-black/10 bg-background px-4 py-3 text-sm text-text shadow-sm outline-none transition placeholder:text-text/40 focus:border-black/15 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface";
 
-function buildOrderMailto(payload: OrderFormState): string {
-  const subject = `Order inquiry — ${payload.name}`;
+function addDaysLocal(base: Date, days: number): Date {
+  const d = new Date(
+    base.getFullYear(),
+    base.getMonth(),
+    base.getDate()
+  );
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function formatYYYYMMDD(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function getMinDateString(item: MenuItem | undefined, qty: number): string {
+  const today = new Date();
+  if (!item) {
+    return formatYYYYMMDD(addDaysLocal(today, 7));
+  }
+  const leadDays =
+    qty >= item.largeBatchAt ? item.largeLeadDays : item.minLeadDays;
+  return formatYYYYMMDD(addDaysLocal(today, leadDays));
+}
+
+function clampQuantity(value: number, item: MenuItem): number {
+  if (Number.isNaN(value)) {
+    return item.minQty;
+  }
+  const snapped =
+    item.minQty +
+    Math.round((value - item.minQty) / item.qtyStep) * item.qtyStep;
+  return Math.min(item.maxQty, Math.max(item.minQty, snapped));
+}
+
+function buildOrderMailto(
+  payload: OrderFormState,
+  activeItem: MenuItem
+): string {
+  const subject = `Order inquiry — ${payload.selectedItem} × ${payload.quantity} — ${payload.name}`;
   const body = [
     "Hi Ayesha,",
     "",
-    "I'd like to place an order. Details below:",
+    "A new order inquiry has come in. Details below:",
     "",
-    `Name: ${payload.name}`,
-    `Email: ${payload.email}`,
-    payload.phone ? `Phone: ${payload.phone}` : "Phone: (not provided)",
-    `Date needed: ${payload.dateNeeded}`,
+    "──────────────────────────",
+    "CONTACT",
+    "──────────────────────────",
+    `Name:   ${payload.name}`,
+    `Email:  ${payload.email}`,
+    `Phone:  ${payload.phone}`,
     "",
-    "What I'm ordering:",
-    payload.orderDetails,
+    "──────────────────────────",
+    "ORDER",
+    "──────────────────────────",
+    `Item:      ${payload.selectedItem}`,
+    `Quantity:  ${payload.quantity} ${activeItem.unit}`,
+    `Date:      ${payload.dateNeeded}`,
     "",
-    payload.specialRequests
-      ? `Special requests:\n${payload.specialRequests}`
-      : "Special requests: (none)",
+    "──────────────────────────",
+    "SPECIAL REQUESTS",
+    "──────────────────────────",
+    payload.specialRequests.trim() || "(none)",
     "",
     "Thanks!",
   ].join("\n");
@@ -71,36 +126,81 @@ export function OrderForm() {
   const [form, setForm] = useState<OrderFormState>(initialState);
   const [showMailHint, setShowMailHint] = useState(false);
 
-  const canSubmit = useMemo(() => {
-    return (
-      form.name.trim().length > 0 &&
-      form.email.trim().length > 0 &&
-      form.orderDetails.trim().length > 0 &&
-      form.dateNeeded.trim().length > 0
-    );
-  }, [form]);
+  const activeItem = useMemo(
+    () => getActiveItem(form.selectedItem),
+    [form.selectedItem]
+  );
 
-  function update<K extends keyof OrderFormState>(key: K, value: string) {
+  const minDateString = useMemo(
+    () => getMinDateString(activeItem, form.quantity),
+    [activeItem, form.quantity]
+  );
+
+  const canSubmit = useMemo(() => {
+    if (form.name.trim().length === 0) return false;
+    if (form.email.trim().length === 0) return false;
+    if (form.phone.trim().length === 0) return false;
+    if (!activeItem) return false;
+    if (form.quantity < activeItem.minQty || form.quantity > activeItem.maxQty) {
+      return false;
+    }
+    const date = form.dateNeeded.trim();
+    if (date.length === 0) return false;
+    if (date < minDateString) return false;
+    return true;
+  }, [form, activeItem, minDateString]);
+
+  function update<K extends keyof OrderFormState>(
+    key: K,
+    value: OrderFormState[K]
+  ) {
     setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function onSelectItem(label: string) {
+    const item = getActiveItem(label);
+    setForm((prev) => ({
+      ...prev,
+      selectedItem: label,
+      quantity: item ? item.minQty : 0,
+      dateNeeded: "",
+    }));
+  }
+
+  function onQuantityChange(raw: number) {
+    if (!activeItem) return;
+    update("quantity", clampQuantity(raw, activeItem));
   }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!activeItem || !canSubmit) return;
 
     const payload: OrderFormState = {
       ...form,
       name: form.name.trim(),
       email: form.email.trim(),
       phone: form.phone.trim(),
-      orderDetails: form.orderDetails.trim(),
+      selectedItem: form.selectedItem.trim(),
+      quantity: form.quantity,
       dateNeeded: form.dateNeeded.trim(),
       specialRequests: form.specialRequests.trim(),
     };
 
-    const href = buildOrderMailto(payload);
+    const href = buildOrderMailto(payload, activeItem);
     setShowMailHint(true);
+    track("inquiry_sent", {
+      item: payload.selectedItem,
+      quantity: payload.quantity,
+    });
     window.location.assign(href);
   }
+
+  const stepperBtn =
+    "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 bg-surface text-base font-semibold text-text transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-40";
+
+  const numberInputClass =
+    "w-24 rounded-2xl border border-black/10 bg-background px-4 py-3 text-center text-sm text-text shadow-sm outline-none [appearance:textfield] focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
 
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
@@ -162,15 +262,16 @@ export function OrderForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <FieldLabel htmlFor="phone">Phone (optional)</FieldLabel>
+          <FieldLabel htmlFor="phone">Phone *</FieldLabel>
           <input
             id="phone"
             name="phone"
             type="tel"
+            required
             value={form.phone}
             onChange={(e) => update("phone", e.target.value)}
             className={inputBase}
-            placeholder="(optional)"
+            placeholder="(555) 000-0000"
             autoComplete="tel"
           />
         </div>
@@ -182,6 +283,7 @@ export function OrderForm() {
             name="dateNeeded"
             type="date"
             required
+            min={minDateString}
             value={form.dateNeeded}
             onChange={(e) => update("dateNeeded", e.target.value)}
             className={cx(inputBase, "py-[0.7rem]")}
@@ -190,27 +292,100 @@ export function OrderForm() {
       </div>
 
       <div className="space-y-2">
-        <FieldLabel htmlFor="orderDetails">What are you ordering? *</FieldLabel>
-        <textarea
-          id="orderDetails"
-          name="orderDetails"
+        <FieldLabel htmlFor="menuItem">What would you like to order? *</FieldLabel>
+        <select
+          id="menuItem"
+          name="menuItem"
           required
-          value={form.orderDetails}
-          onChange={(e) => update("orderDetails", e.target.value)}
-          className={cx(inputBase, "min-h-28 resize-y")}
-          placeholder="Treat type, quantity, theme/colors, flavors..."
-        />
+          value={form.selectedItem}
+          onChange={(e) => onSelectItem(e.target.value)}
+          className={inputBase}
+        >
+          <option value="" disabled>
+            Select a treat...
+          </option>
+          {MENU_ITEMS.map((item) => (
+            <option key={item.label} value={item.label}>
+              {item.label}
+            </option>
+          ))}
+        </select>
       </div>
 
+      {form.selectedItem && activeItem ? (
+        <>
+          <div className="space-y-2">
+            <FieldLabel htmlFor="quantity">
+              Quantity * (min {activeItem.minQty}, max {activeItem.maxQty}{" "}
+              {activeItem.unit})
+            </FieldLabel>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                className={stepperBtn}
+                disabled={form.quantity <= activeItem.minQty}
+                aria-label="Decrease quantity"
+                onClick={() =>
+                  onQuantityChange(form.quantity - activeItem.qtyStep)
+                }
+              >
+                −
+              </button>
+              <input
+                id="quantity"
+                name="quantity"
+                type="number"
+                min={activeItem.minQty}
+                max={activeItem.maxQty}
+                step={activeItem.qtyStep}
+                value={form.quantity}
+                onChange={(e) =>
+                  onQuantityChange(Number.parseInt(e.target.value, 10))
+                }
+                className={numberInputClass}
+              />
+              <button
+                type="button"
+                className={stepperBtn}
+                disabled={form.quantity >= activeItem.maxQty}
+                aria-label="Increase quantity"
+                onClick={() =>
+                  onQuantityChange(form.quantity + activeItem.qtyStep)
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-black/10 bg-surface px-4 py-3 text-xs leading-5 text-text/70">
+            {form.quantity >= activeItem.largeBatchAt ? (
+              <>
+                Large orders need at least {activeItem.largeLeadDays} days lead
+                time. Please pick a date at least {activeItem.largeLeadDays}{" "}
+                days from today.
+              </>
+            ) : (
+              <>
+                We need at least {activeItem.minLeadDays} days to prepare your
+                order.
+              </>
+            )}
+          </div>
+        </>
+      ) : null}
+
       <div className="space-y-2">
-        <FieldLabel htmlFor="specialRequests">Special requests (optional)</FieldLabel>
+        <FieldLabel htmlFor="specialRequests">
+          Special requests, theme details &amp; notes (optional)
+        </FieldLabel>
         <textarea
           id="specialRequests"
           name="specialRequests"
           value={form.specialRequests}
           onChange={(e) => update("specialRequests", e.target.value)}
           className={cx(inputBase, "min-h-24 resize-y")}
-          placeholder="Allergies, packaging, pickup/delivery notes..."
+          placeholder="Colors, theme, allergies, packaging, pickup notes..."
         />
       </div>
 

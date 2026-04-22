@@ -1,18 +1,44 @@
 import type { Metadata } from "next";
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+} from "@/lib/site-config";
 import { ORDER_INQUIRY_EMAIL } from "./constants";
 import { OrderForm } from "./ui/OrderForm";
 
 export const metadata: Metadata = {
+  title: "Order halal custom treats",
   description:
-    "Order custom treats made with halal ingredients from The Sweets by Ayesha. Send an order inquiry by email: cake pops, rice krispie treats, and more near Schaumburg, IL.",
+    "Place a halal-certified treat order near Schaumburg, IL. Email your date, theme & flavors — The Sweets by Ayesha replies to confirm pickup or delivery.",
+  alternates: {
+    canonical: "/order",
+  },
   openGraph: {
-    title: "Order Now | The Sweets by Ayesha",
-    description:
-      "Send your order details by email — we’ll get back to you to confirm.",
     type: "website",
+    url: `${SITE_URL}/order`,
+    title: `Order custom halal treats | ${SITE_NAME}`,
+    description:
+      "Email your order details for cake pops, rice krispie treats, dessert cups & custom celebration sweets — we confirm dates and pickup or delivery.",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: `Order halal treats from ${SITE_NAME}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: TWITTER_SITE,
+    title: `Order custom halal treats | ${SITE_NAME}`,
+    description:
+      "Email your order for halal cake pops, rice krispie treats & custom sweets — pickup & delivery near Schaumburg, IL.",
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {
     index: true,

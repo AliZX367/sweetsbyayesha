@@ -1,17 +1,43 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_SITE,
+} from "@/lib/site-config";
 
 export const metadata: Metadata = {
+  title: "Meet Ayesha — halal home baker",
   description:
-    "Meet Ayesha — a home baker near Schaumburg, IL creating beautiful custom treats made with halal ingredients for birthdays, weddings, and every celebration.",
+    "Meet Ayesha of The Sweets by Ayesha: halal-certified home bakery near Schaumburg, IL — custom cake pops, dessert tables & celebration treats made to order.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
-    title: "Meet Ayesha | Halal Home Baker",
-    description:
-      "Hi, I’m Ayesha—a home baker near Schaumburg, IL passionate about creating beautiful treats made with halal ingredients for every occasion.",
     type: "website",
+    url: `${SITE_URL}/about`,
+    title: `Meet Ayesha | ${SITE_NAME}`,
+    description:
+      "Halal-certified home baker near Schaumburg — custom treats, dessert tables & celebration sweets made with care.",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: `About ${SITE_NAME} — halal home bakery Schaumburg, IL`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: TWITTER_SITE,
+    title: `Meet Ayesha | ${SITE_NAME}`,
+    description:
+      "Halal-certified home baker near Schaumburg — custom cake pops, dessert tables & celebration treats.",
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {
     index: true,
