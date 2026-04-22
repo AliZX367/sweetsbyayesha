@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const REVIEWS = [
   {
@@ -143,6 +144,15 @@ export function ReviewsSection() {
               </article>
             ))}
           </div>
+        </div>
+
+        <div className="mt-6">
+          <Link
+            href="/reviews"
+            className="text-sm font-semibold text-text underline underline-offset-2 transition hover:text-primary"
+          >
+            See all reviews →
+          </Link>
         </div>
       </div>
     </section>
