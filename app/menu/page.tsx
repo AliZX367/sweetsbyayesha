@@ -9,7 +9,7 @@ import {
 } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Halal cake pops & custom treats menu",
+  title: "Our Treats",
   description:
     "Halal-certified menu near Schaumburg, IL: cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & fully custom dessert orders.",
   alternates: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE_URL}/menu`,
-    title: `Halal treat menu | ${SITE_NAME}`,
+    title: `Our Treats | ${SITE_NAME}`,
     description:
       "Browse halal cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom celebration orders.",
     siteName: SITE_NAME,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: TWITTER_SITE,
-    title: `Halal treat menu | ${SITE_NAME}`,
+    title: `Our Treats | ${SITE_NAME}`,
     description:
       "Browse halal cake pops, rice krispie treats, mango dessert cups, chocolate strawberries & custom orders.",
     images: [DEFAULT_OG_IMAGE_PATH],

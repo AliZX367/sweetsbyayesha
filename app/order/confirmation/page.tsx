@@ -33,6 +33,37 @@ export default async function OrderConfirmationPage({
   const date = firstString(sp.date);
   const showSummary = Boolean(item);
 
+  const calendarIcsHref =
+    date && showSummary
+      ? `/order/calendar?date=${encodeURIComponent(date)}&item=${encodeURIComponent(
+          item ?? ""
+        )}&qty=${encodeURIComponent(qty ?? "")}`
+      : undefined;
+
+  const googleCalendarHref =
+    date && showSummary
+      ? (() => {
+          const titleParts = ["Treat pickup", item ? `— ${item}` : undefined].filter(
+            Boolean
+          );
+          const text = titleParts.join(" ");
+          const dates = `${date.replaceAll("-", "")}/${date.replaceAll("-", "")}`;
+          const details = [
+            "Order pickup reminder.",
+            item ? `Item: ${item}` : undefined,
+            qty ? `Quantity: ${qty}` : undefined,
+            "Pickup details will be confirmed by email.",
+          ]
+            .filter(Boolean)
+            .join("\n");
+          return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+            text
+          )}&dates=${encodeURIComponent(
+            `${dates}T000000Z/${dates}T235900Z`
+          )}&details=${encodeURIComponent(details)}`;
+        })()
+      : undefined;
+
   return (
     <div className="site-container-narrow site-section">
       <div className="flex justify-center">
@@ -130,6 +161,39 @@ export default async function OrderConfirmationPage({
               </>
             ) : null}
           </dl>
+        </div>
+      ) : null}
+
+      {calendarIcsHref || googleCalendarHref ? (
+        <div className="mt-6 rounded-2xl border border-black/10 bg-surface px-5 py-4 shadow-sm">
+          <p className="text-xs font-semibold tracking-widest text-text/50 uppercase">
+            Add to calendar
+          </p>
+          <p className="mt-2 text-sm leading-6 text-text/70">
+            Save your date now — Apple Calendar can open the{" "}
+            <span className="font-semibold text-text">.ics</span> file, and Google
+            Calendar works great on Android.
+          </p>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            {calendarIcsHref ? (
+              <a
+                href={calendarIcsHref}
+                className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95"
+              >
+                Add to Apple Calendar (.ics)
+              </a>
+            ) : null}
+            {googleCalendarHref ? (
+              <a
+                href={googleCalendarHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full border border-black/10 bg-background px-6 py-3 text-sm font-semibold text-text transition hover:bg-surface"
+              >
+                Add to Google Calendar
+              </a>
+            ) : null}
+          </div>
         </div>
       ) : null}
 

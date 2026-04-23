@@ -1,14 +1,26 @@
 "use client";
 
 import { track } from "@vercel/analytics";
+import { format, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 import {
   getActiveItem,
   MENU_ITEMS,
   type MenuItem,
   ORDER_INQUIRY_EMAIL,
 } from "../constants";
+
+const PAYMENT_METHODS = [
+  "Cash (preferred)",
+  "Zelle",
+  "Cash App",
+  "Venmo",
+] as const;
+
+type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
 type OrderFormState = {
   name: string;
@@ -17,6 +29,7 @@ type OrderFormState = {
   selectedItem: string;
   quantity: number;
   dateNeeded: string;
+  paymentMethod: PaymentMethod | "";
   specialRequests: string;
 };
 
@@ -27,6 +40,7 @@ const initialState: OrderFormState = {
   selectedItem: "",
   quantity: 0,
   dateNeeded: "",
+  paymentMethod: "Cash (preferred)",
   specialRequests: "",
 };
 
@@ -114,6 +128,7 @@ function buildOrderMailto(
     `Item:      ${payload.selectedItem}`,
     `Quantity:  ${payload.quantity} ${activeItem.unit}`,
     `Date:      ${payload.dateNeeded}`,
+    `Payment:   ${payload.paymentMethod || "(not selected)"}`,
     "",
     "──────────────────────────",
     "SPECIAL REQUESTS",
@@ -129,6 +144,7 @@ function buildOrderMailto(
 export function OrderForm() {
   const router = useRouter();
   const [form, setForm] = useState<OrderFormState>(initialState);
+  const [dateOpen, setDateOpen] = useState(false);
 
   const activeItem = useMemo(
     () => getActiveItem(form.selectedItem),
@@ -151,6 +167,7 @@ export function OrderForm() {
     const date = form.dateNeeded.trim();
     if (date.length === 0) return false;
     if (date < minDateString) return false;
+    if (!form.paymentMethod) return false;
     return true;
   }, [form, activeItem, minDateString]);
 
@@ -188,6 +205,7 @@ export function OrderForm() {
       selectedItem: form.selectedItem.trim(),
       quantity: form.quantity,
       dateNeeded: form.dateNeeded.trim(),
+      paymentMethod: form.paymentMethod,
       specialRequests: form.specialRequests.trim(),
     };
 
@@ -219,6 +237,24 @@ export function OrderForm() {
 
   const numberInputClass =
     "w-24 rounded-2xl border border-black/10 bg-background px-4 py-3 text-center text-sm text-text shadow-sm outline-none [appearance:textfield] focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none sm:text-base";
+
+  const minDate = useMemo(() => {
+    return parseISO(minDateString);
+  }, [minDateString]);
+
+  const selectedDate = useMemo(() => {
+    if (!form.dateNeeded) return undefined;
+    try {
+      return parseISO(form.dateNeeded);
+    } catch {
+      return undefined;
+    }
+  }, [form.dateNeeded]);
+
+  const dateButtonLabel = useMemo(() => {
+    if (!selectedDate) return "Pick a date…";
+    return format(selectedDate, "EEE, MMM d, yyyy");
+  }, [selectedDate]);
 
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
@@ -278,16 +314,67 @@ export function OrderForm() {
 
         <div className="space-y-2">
           <FieldLabel htmlFor="dateNeeded">Date needed *</FieldLabel>
-          <input
-            id="dateNeeded"
-            name="dateNeeded"
-            type="date"
-            required
-            min={minDateString}
-            value={form.dateNeeded}
-            onChange={(e) => update("dateNeeded", e.target.value)}
-            className={cx(inputBase, "py-[0.7rem]")}
-          />
+          <div className="relative">
+            <button
+              type="button"
+              className={cx(
+                inputBase,
+                "flex items-center justify-between gap-3 text-left",
+                "py-3"
+              )}
+              aria-haspopup="dialog"
+              aria-expanded={dateOpen}
+              onClick={() => setDateOpen((v) => !v)}
+            >
+              <span className={form.dateNeeded ? "text-text" : "text-text/50"}>
+                {dateButtonLabel}
+              </span>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0 text-text/70"
+                aria-hidden="true"
+              >
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <rect width="18" height="18" x="3" y="4" rx="2" />
+                <path d="M3 10h18" />
+              </svg>
+            </button>
+
+            {dateOpen ? (
+              <div
+                role="dialog"
+                aria-label="Choose a date"
+                className="absolute z-20 mt-2 w-full overflow-hidden rounded-3xl border border-black/10 bg-background p-3 shadow-lg"
+              >
+                <DayPicker
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(d) => {
+                    if (!d) return;
+                    const iso = format(d, "yyyy-MM-dd");
+                    if (iso < minDateString) return;
+                    update("dateNeeded", iso);
+                    setDateOpen(false);
+                  }}
+                  disabled={{ before: minDate }}
+                />
+                <p className="mt-2 text-xs leading-5 text-text/60">
+                  Earliest available date:{" "}
+                  <span className="font-semibold text-text">
+                    {format(minDate, "MMM d, yyyy")}
+                  </span>
+                </p>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
 
@@ -310,6 +397,29 @@ export function OrderForm() {
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="space-y-2">
+        <FieldLabel htmlFor="paymentMethod">Payment method *</FieldLabel>
+        <select
+          id="paymentMethod"
+          name="paymentMethod"
+          required
+          value={form.paymentMethod}
+          onChange={(e) =>
+            update("paymentMethod", e.target.value as PaymentMethod)
+          }
+          className={inputBase}
+        >
+          {PAYMENT_METHODS.map((m) => (
+            <option key={m} value={m}>
+              {m}
+            </option>
+          ))}
+        </select>
+        <p className="text-xs leading-5 text-text/60">
+          Cash is preferred, but we can also do Zelle, Cash App, or Venmo.
+        </p>
       </div>
 
       {form.selectedItem && activeItem ? (

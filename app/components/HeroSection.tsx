@@ -31,7 +31,7 @@ export function HeroSection({
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-background/85 via-background/50 to-background/10" />
+        <div className="absolute inset-0 bg-linear-to-r from-background/70 via-background/30 to-background/0" />
       </div>
 
       <div className="site-container relative py-16 sm:py-24">

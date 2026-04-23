@@ -60,16 +60,21 @@ export default function AboutPage() {
                 className="rounded-full shadow-lg"
               />
             </div>
-            <h1 className="site-h1 text-text">About Ayesha</h1>
+            <h1 className="site-h1 text-text">About me</h1>
             <p className="site-lead">
-              Hi, I&apos;m Ayesha — a home baker near Schaumburg, IL passionate
-              about creating beautiful treats made with halal ingredients for
-              every occasion.
+              Hi, I&apos;m Ayesha — a home baker near Schaumburg, IL. I make
+              made-to-order treats using halal ingredients, with a focus on
+              flavors that taste as good as they look.
             </p>
             <p className="site-body">
-              Whether you need a few dozen cake pops for a school event or a
-              fully coordinated dessert table, I love collaborating on themes,
-              colors, and flavors to make your celebration feel extra special.
+              I started baking for the people I love, and it grew into The
+              Sweets by Ayesha — a little corner where celebrations get a
+              sweeter, more personal touch.
+            </p>
+            <p className="site-body">
+              If you have a theme, color palette, or a special request, I love
+              bringing it to life — from cake pops and rice krispie treats to
+              dessert cups, chocolate strawberries, and custom dessert tables.
             </p>
           </div>
 
@@ -94,23 +99,21 @@ export default function AboutPage() {
                 Made with Halal Ingredients
               </div>
               <p className="site-body mt-3">
-                Every ingredient and process is chosen with care, so you can
-                order with confidence.
+                I’m intentional about what goes into every order, so you can
+                celebrate with confidence.
               </p>
             </div>
 
             <div className="rounded-3xl border border-black/5 bg-background p-6 shadow-sm md:col-span-2">
-              <h2 className="site-h2 text-text">
-                What makes The Sweets by Ayesha different
-              </h2>
+              <h2 className="site-h2 text-text">What I care about</h2>
               <ul className="mt-4 grid gap-3 text-sm leading-6 text-text/80 sm:grid-cols-2 sm:text-base">
                 <li className="rounded-2xl bg-surface px-4 py-3">
                   <span className="font-semibold text-text">Made to order</span>{" "}
-                  so your treats arrive fresh.
+                  so everything arrives fresh.
                 </li>
                 <li className="rounded-2xl bg-surface px-4 py-3">
                   <span className="font-semibold text-text">Fresh ingredients</span>{" "}
-                  with flavor-forward recipes.
+                  and flavor-forward recipes.
                 </li>
                 <li className="rounded-2xl bg-surface px-4 py-3">
                   <span className="font-semibold text-text">Local pickup</span>{" "}
@@ -118,7 +121,7 @@ export default function AboutPage() {
                 </li>
                 <li className="rounded-2xl bg-surface px-4 py-3">
                   <span className="font-semibold text-text">Delivery options</span>{" "}
-                  discussed upon confirmation.
+                  discussed when we confirm details.
                 </li>
               </ul>
             </div>

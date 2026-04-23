@@ -12,7 +12,7 @@ import {
 } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: { absolute: "thesweetsbyayesha" },
+  title: { absolute: SITE_NAME },
   description:
     "Handcrafted halal treats near Schaumburg, IL — cake pops, rice krispie treats, mango cups & custom baked goods. Made fresh to order.",
   alternates: {

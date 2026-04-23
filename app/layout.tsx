@@ -87,8 +87,8 @@ const body = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "thesweetsbyayesha",
-    template: "%s | thesweetsbyayesha",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
   applicationName: SITE_NAME,
   description:
