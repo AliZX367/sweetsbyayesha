@@ -135,7 +135,8 @@ export function Navbar() {
             ? "pointer-events-auto translate-x-0 opacity-100"
             : "pointer-events-none translate-x-4 opacity-0"
         )}
-        aria-hidden={!open}
+        aria-hidden={!open || undefined}
+        inert={!open || undefined}
       >
         <div className="flex items-center justify-between border-b border-black/5 px-4 py-4">
           <Link href="/" className="inline-flex min-w-0 items-center gap-3">

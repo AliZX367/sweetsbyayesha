@@ -110,30 +110,24 @@ function buildOrderMailto(
   activeItem: MenuItem
 ): string {
   const subject = `Order inquiry — ${payload.selectedItem} × ${payload.quantity} — ${payload.name}`;
+  const payment = payload.paymentMethod || "(not selected)";
+  const notes = payload.specialRequests.trim() || "(none)";
   const body = [
     "Hi Ayesha,",
     "",
-    "A new order inquiry has come in. Details below:",
+    "New order inquiry details:",
     "",
-    "──────────────────────────",
-    "CONTACT",
-    "──────────────────────────",
-    `Name:   ${payload.name}`,
-    `Email:  ${payload.email}`,
-    `Phone:  ${payload.phone}`,
+    `Name: ${payload.name}`,
+    `Phone: ${payload.phone}`,
+    `Email: ${payload.email}`,
     "",
-    "──────────────────────────",
-    "ORDER",
-    "──────────────────────────",
-    `Item:      ${payload.selectedItem}`,
-    `Quantity:  ${payload.quantity} ${activeItem.unit}`,
-    `Date:      ${payload.dateNeeded}`,
-    `Payment:   ${payload.paymentMethod || "(not selected)"}`,
+    `Order: ${payload.selectedItem} × ${payload.quantity} ${activeItem.unit}`,
+    `Expected pickup: ${payload.dateNeeded}`,
     "",
-    "──────────────────────────",
-    "SPECIAL REQUESTS",
-    "──────────────────────────",
-    payload.specialRequests.trim() || "(none)",
+    `Payment: ${payment}`,
+    "",
+    "Notes",
+    notes,
     "",
     "Thanks!",
   ].join("\n");
