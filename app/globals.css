@@ -33,6 +33,22 @@ body {
     BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+html {
+  font-size: 16px;
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 18px;
+  }
+}
+
 a {
   color: inherit;
 }
@@ -57,9 +73,9 @@ a {
 .review-marquee-track {
   display: flex;
   width: max-content;
-  gap: 1rem;
+  gap: 1.25rem;
   padding-bottom: 0.5rem;
-  animation: review-marquee 50s linear infinite;
+  animation: review-marquee 60s linear infinite;
   will-change: transform;
 }
 
@@ -80,5 +96,33 @@ a {
 
   .site-container-narrow {
     @apply mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-10;
+  }
+
+  .full-bleed {
+    @apply relative left-1/2 right-1/2 mx-[-50vw] w-screen;
+  }
+
+  .site-section {
+    @apply py-12 sm:py-14 lg:py-16;
+  }
+
+  .site-h1 {
+    @apply font-serif tracking-tight text-3xl sm:text-4xl lg:text-5xl;
+  }
+
+  .site-h2 {
+    @apply font-serif tracking-tight text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .site-lead {
+    @apply text-sm leading-6 text-text/80 sm:text-base lg:text-lg;
+  }
+
+  .site-body {
+    @apply text-sm leading-6 text-text/80 sm:text-base;
+  }
+
+  .site-button {
+    @apply text-sm font-semibold sm:text-base;
   }
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Footer } from "@/app/components/Footer";
 import { Navbar } from "@/app/components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import {
   DEFAULT_OG_IMAGE_PATH,
   SITE_NAME,
@@ -159,6 +160,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -34,7 +34,7 @@ const REVIEWS = [
     name: "Zainab K.",
     rating: 5 as const,
     avatarSrc:
-      "https://images.unsplash.com/photo-1544005313-94d028ca8860?auto=format&fit=crop&w=72&h=72&q=80",
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=72&h=72&q=80",
     text: "Honestly some of the best cake pops I've ever had. The custom colors matched our theme perfectly and the quality was next level.",
   },
   {
@@ -108,48 +108,54 @@ function ReviewAvatar({ src, name }: { src: string; name: string }) {
 export function ReviewsSection() {
   return (
     <section className="bg-surface/40">
-      <div className="site-container py-14">
+      <div className="site-container site-section">
         <h2
           id="customer-reviews-heading"
-          className="font-serif text-2xl tracking-tight text-text sm:text-3xl"
+          className="font-serif text-2xl tracking-tight text-text sm:text-3xl lg:text-4xl"
         >
           What our customers say
         </h2>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-text/80 sm:text-base lg:text-lg">
           Real reviews from real customers across Schaumburg and the Chicago
           suburbs.
         </p>
+      </div>
 
-        <div className="review-marquee-outer scrollbar-hide relative mt-8 overflow-hidden before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-12 before:bg-linear-to-r before:from-background before:to-transparent before:content-[''] after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:z-10 after:w-12 after:bg-linear-to-l after:from-background after:to-transparent after:content-['']">
-          <div
-            className="review-marquee-track"
-            role="region"
-            aria-labelledby="customer-reviews-heading"
-          >
-            {MARQUEE_REVIEWS.map((review, index) => (
-              <article
-                key={`${review.name}-${index}`}
-                className="flex min-w-[280px] max-w-[280px] shrink-0 flex-col gap-3 rounded-2xl border border-black/10 bg-background p-5 shadow-sm"
-              >
-                <StarRow rating={review.rating} />
-                <p className="flex-1 text-sm leading-6 text-text/80">
-                  {review.text}
-                </p>
-                <div className="mt-auto flex items-center gap-3 border-t border-black/5 pt-3">
-                  <ReviewAvatar src={review.avatarSrc} name={review.name} />
-                  <p className="text-sm font-semibold text-text">
-                    {review.name}
+      <div className="full-bleed">
+        <div className="review-marquee-outer scrollbar-hide relative mt-8 overflow-hidden before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-14 before:bg-linear-to-r before:from-background before:to-transparent before:content-[''] after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:z-10 after:w-14 after:bg-linear-to-l after:from-background after:to-transparent after:content-['']">
+          <div className="px-4 sm:px-6 lg:px-10">
+            <div
+              className="review-marquee-track"
+              role="region"
+              aria-labelledby="customer-reviews-heading"
+            >
+              {MARQUEE_REVIEWS.map((review, index) => (
+                <article
+                  key={`${review.name}-${index}`}
+                  className="flex min-w-[320px] max-w-[320px] shrink-0 flex-col gap-3 rounded-3xl border border-black/10 bg-background p-6 shadow-sm"
+                >
+                  <StarRow rating={review.rating} />
+                  <p className="flex-1 text-sm leading-6 text-text/80 sm:text-base lg:text-lg">
+                    {review.text}
                   </p>
-                </div>
-              </article>
-            ))}
+                  <div className="mt-auto flex items-center gap-3 border-t border-black/5 pt-3">
+                    <ReviewAvatar src={review.avatarSrc} name={review.name} />
+                    <p className="text-sm font-semibold text-text sm:text-base">
+                      {review.name}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
 
+      <div className="site-container pb-12 sm:pb-14 lg:pb-16">
         <div className="mt-6">
           <Link
             href="/reviews"
-            className="text-sm font-semibold text-text underline underline-offset-2 transition hover:text-primary"
+            className="text-sm font-semibold text-text underline underline-offset-2 transition hover:text-primary sm:text-base"
           >
             See all reviews →
           </Link>

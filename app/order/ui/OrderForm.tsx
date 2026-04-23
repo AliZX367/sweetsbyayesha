@@ -42,14 +42,17 @@ function FieldLabel({
   children: React.ReactNode;
 }) {
   return (
-    <label htmlFor={htmlFor} className="text-sm font-semibold text-text">
+    <label
+      htmlFor={htmlFor}
+      className="text-sm font-semibold text-text sm:text-base"
+    >
       {children}
     </label>
   );
 }
 
 const inputBase =
-  "w-full rounded-2xl border border-black/10 bg-background px-4 py-3 text-sm text-text shadow-sm outline-none transition placeholder:text-text/40 focus:border-black/15 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface";
+  "w-full rounded-2xl border border-black/10 bg-background px-4 py-3 text-sm text-text shadow-sm outline-none transition placeholder:text-text/40 focus:border-black/15 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface sm:text-base";
 
 function addDaysLocal(base: Date, days: number): Date {
   const d = new Date(
@@ -215,11 +218,11 @@ export function OrderForm() {
     "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 bg-surface text-base font-semibold text-text transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-40";
 
   const numberInputClass =
-    "w-24 rounded-2xl border border-black/10 bg-background px-4 py-3 text-center text-sm text-text shadow-sm outline-none [appearance:textfield] focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
+    "w-24 rounded-2xl border border-black/10 bg-background px-4 py-3 text-center text-sm text-text shadow-sm outline-none [appearance:textfield] focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none sm:text-base";
 
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
-      <p className="text-sm leading-6 text-text/80">
+      <p className="site-body">
         Fill this out, then <strong className="text-text">Continue to email</strong>{" "}
         — your mail app opens with everything filled in so you can send it when
         you&apos;re ready.
@@ -390,7 +393,7 @@ export function OrderForm() {
         type="submit"
         disabled={!canSubmit}
         className={cx(
-          "inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+          "inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:text-base",
           canSubmit
             ? "bg-primary text-background hover:brightness-95"
             : "cursor-not-allowed bg-black/10 text-text/50"

@@ -74,22 +74,20 @@ export default function ReviewsPage() {
   return (
     <div className="flex flex-col">
       <section className="bg-surface">
-        <div className="site-container py-14">
-          <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
-            Wall of Love
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
+        <div className="site-container site-section">
+          <h1 className="site-h1 text-text">Wall of Love</h1>
+          <p className="site-lead mt-3 max-w-2xl">
             Real words from real customers. Every review below was submitted
             directly to us.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text">
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text sm:text-base">
               ★ 5.0 average rating
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text">
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text sm:text-base">
               50+ happy customers
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text">
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text sm:text-base">
               Schaumburg &amp; Chicago suburbs
             </span>
           </div>
@@ -97,7 +95,7 @@ export default function ReviewsPage() {
       </section>
 
       <section className="bg-background">
-        <div className="site-container py-14">
+        <div className="site-container site-section">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {REVIEWS.map((review) => (
               <article
@@ -105,10 +103,10 @@ export default function ReviewsPage() {
                 className="flex flex-col gap-3 rounded-3xl border border-black/5 bg-background p-6 shadow-sm"
               >
                 <StarRow />
-                <p className="flex-1 text-sm leading-6 text-text/80">
+                <p className="site-body flex-1">
                   {review.text}
                 </p>
-                <p className="mt-auto text-sm font-semibold text-text">
+                <p className="mt-auto text-sm font-semibold text-text sm:text-base">
                   {review.name}
                 </p>
               </article>
@@ -118,11 +116,9 @@ export default function ReviewsPage() {
       </section>
 
       <section className="bg-surface">
-        <div className="site-container py-14">
-          <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
-            Had a sweet experience?
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
+        <div className="site-container site-section">
+          <h2 className="site-h2 text-text">Had a sweet experience?</h2>
+          <p className="site-lead mt-3 max-w-2xl">
             We&apos;d love to hear from you. Send us your feedback and we may
             feature it here.
           </p>
@@ -131,13 +127,13 @@ export default function ReviewsPage() {
               href="https://www.instagram.com/thesweetsbyayesha"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-black/10 bg-background px-5 py-3 text-sm font-semibold text-text shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="site-button inline-flex items-center justify-center rounded-full border border-black/10 bg-background px-5 py-3 text-text shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Follow on Instagram
             </a>
             <Link
               href="/order"
-              className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="site-button inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Send us a message
             </Link>

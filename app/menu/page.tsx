@@ -106,11 +106,9 @@ export default function MenuPage() {
   return (
     <div>
       <section className="bg-surface">
-        <div className="site-container py-14">
-          <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
-            Our Treats
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
+        <div className="site-container site-section">
+          <h1 className="site-h1 text-text">Our Treats</h1>
+          <p className="site-lead mt-3 max-w-2xl">
             Everything is made fresh to order using halal ingredients. Pick a
             favourite or describe your theme — we&apos;ll bring it to life.
           </p>
@@ -128,7 +126,7 @@ export default function MenuPage() {
         </div>
       </section>
 
-      <section className="site-container py-14">
+      <section className="site-container site-section">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 *:min-w-0">
           {treats.map((t) => (
             <TreatCard
@@ -143,10 +141,8 @@ export default function MenuPage() {
       </section>
 
       <section className="bg-surface">
-        <div className="site-container py-14">
-          <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
-            How to order
-          </h2>
+        <div className="site-container site-section">
+          <h2 className="site-h2 text-text">How to order</h2>
           <ol className="mt-8 grid gap-6 sm:grid-cols-3">
             {howToOrderSteps.map((step, i) => (
               <li
@@ -159,17 +155,15 @@ export default function MenuPage() {
                 <h3 className="mt-4 font-serif text-lg text-text">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-text/80">
-                  {step.body}
-                </p>
+                <p className="site-body mt-2">{step.body}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      <section className="site-container py-12">
-        <p className="mt-4 text-sm text-text/80">
+      <section className="site-container site-section">
+        <p className="site-body">
           Have questions?{" "}
           <Link href="/faq" className="font-semibold text-text underline">
             Visit our FAQ
@@ -178,7 +172,7 @@ export default function MenuPage() {
         </p>
 
         <div className="mt-10 rounded-3xl border border-black/5 bg-surface p-6">
-          <p className="text-sm leading-6 text-text/80">
+          <p className="site-body">
             Don&apos;t see what you&apos;re looking for?{" "}
             <Link className="font-semibold text-text underline" href="/order">
               Send us a message

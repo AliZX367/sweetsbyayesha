@@ -53,8 +53,12 @@ export function TreatCard({
 
   const textBlock = (
     <div className="space-y-2 p-5">
-      <h3 className="font-serif text-lg leading-snug text-text">{title}</h3>
-      <p className="text-sm leading-6 text-text/80">{description}</p>
+      <h3 className="font-serif text-lg leading-snug text-text sm:text-xl">
+        {title}
+      </h3>
+      <p className="text-sm leading-6 text-text/80 sm:text-base lg:text-lg">
+        {description}
+      </p>
     </div>
   );
 
@@ -71,7 +75,7 @@ export function TreatCard({
     <article
       className={cx(
         "group min-w-0 w-full overflow-hidden rounded-3xl border border-black/5 bg-background shadow-sm transition",
-        "perspective-distant cursor-pointer h-[420px]"
+        "perspective-distant cursor-pointer h-[460px]"
       )}
     >
       <div className="relative h-full w-full transform-3d transition-transform duration-500 ease-in-out [@media(hover:hover)]:group-hover:transform-[rotateY(180deg)]">
@@ -80,14 +84,16 @@ export function TreatCard({
           {textBlock}
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-3xl border border-black/5 bg-surface p-6 text-center backface-hidden transform-[rotateY(180deg)]">
-          <h3 className="font-serif text-lg text-text">{title}</h3>
-          <p className="text-sm leading-6 text-text/80">{description}</p>
+          <h3 className="font-serif text-lg text-text sm:text-xl">{title}</h3>
+          <p className="text-sm leading-6 text-text/80 sm:text-base lg:text-lg">
+            {description}
+          </p>
           {pricing ? (
             <div className="text-lg font-semibold text-primary">{pricing}</div>
           ) : null}
           <Link
             href="/order"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-base"
           >
             Order Now
           </Link>

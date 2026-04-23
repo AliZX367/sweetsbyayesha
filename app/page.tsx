@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: `${SITE_NAME} | Halal treats Schaumburg, IL`,
+    title: "Celebrate with something sweet.",
     description:
       "Handcrafted halal-certified sweets near Schaumburg — cake pops, rice krispie treats, custom orders, pickup & delivery.",
     siteName: SITE_NAME,
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: TWITTER_SITE,
-    title: `${SITE_NAME} | Halal treats Schaumburg, IL`,
+    title: "Celebrate with something sweet.",
     description:
       "Handcrafted halal-certified sweets near Schaumburg — cake pops, rice krispie treats & custom orders.",
     images: [DEFAULT_OG_IMAGE_PATH],
@@ -146,20 +146,18 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn delay={100}>
-        <section className="site-container py-14">
+        <section className="site-container site-section">
         <div className="flex items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
-              Featured treats
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-text/80 sm:text-base">
+            <h2 className="site-h2 text-text">Featured treats</h2>
+            <p className="site-lead mt-3">
               Choose a classic, or tell Ayesha your theme and flavor ideas—she’ll
               bring them to life.
             </p>
           </div>
           <Link
             href="/menu"
-            className="hidden rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-semibold text-text shadow-sm transition hover:bg-surface sm:inline-flex"
+            className="site-button hidden rounded-full border border-black/10 bg-background px-4 py-2 text-text shadow-sm transition hover:bg-surface sm:inline-flex"
           >
             View menu
           </Link>
@@ -203,28 +201,26 @@ export default function Home() {
 
       <FadeIn delay={0}>
         <section className="bg-background">
-          <div className="site-container py-14">
-            <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
-              Perfect for every occasion
-            </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-text/80 sm:text-base">
+          <div className="site-container site-section">
+            <h2 className="site-h2 text-text">Perfect for every occasion</h2>
+          <p className="site-lead mt-3 max-w-2xl">
             From school events to weddings — we&apos;ve got your celebration
             covered.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
               🎂 Birthdays
             </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
               💍 Weddings &amp; Engagements
             </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
               🌙 Eid &amp; Ramadan
             </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
               🎓 Graduations
             </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text">
+            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
               🎉 Custom Events
             </span>
           </div>
@@ -234,30 +230,28 @@ export default function Home() {
 
       <FadeIn delay={0}>
         <section className="bg-surface">
-          <div className="site-container py-14">
+          <div className="site-container site-section">
             <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <div className="space-y-3">
-              <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
-                Made fresh. Made with heart.
-              </h2>
-              <p className="text-sm leading-6 text-text/80 sm:text-base">
+              <h2 className="site-h2 text-text">Made fresh. Made with heart.</h2>
+              <p className="site-lead">
                 Hi, I’m Ayesha—a home baker near Schaumburg, IL. Every order is
                 made-to-order with care, so your treats taste as good as they
                 look.
               </p>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center rounded-full bg-secondary px-5 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                className="site-button inline-flex items-center justify-center rounded-full bg-secondary px-5 py-3 text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
               >
                 Meet Ayesha
               </Link>
             </div>
             <div className="rounded-3xl border border-black/5 bg-background p-6 shadow-sm">
               <div className="space-y-2">
-                <div className="text-sm font-semibold text-text">
+                <div className="text-sm font-semibold text-text sm:text-base">
                   Follow along
                 </div>
-                <p className="text-sm leading-6 text-text/80">
+                <p className="site-body">
                   Follow along for behind-the-scenes baking, new drops, and
                   custom designs.
                 </p>
@@ -266,7 +260,7 @@ export default function Home() {
                     href="https://www.tiktok.com/@thesweetsbyayesha"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-semibold text-text transition hover:brightness-95"
+                    className="site-button rounded-full border border-black/10 bg-surface px-4 py-2 text-text transition hover:brightness-95"
                     aria-label="TikTok @thesweetsbyayesha (opens in a new tab)"
                   >
                     TikTok
@@ -275,7 +269,7 @@ export default function Home() {
                     href="https://www.instagram.com/thesweetsbyayesha"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-semibold text-text transition hover:brightness-95"
+                    className="site-button rounded-full border border-black/10 bg-surface px-4 py-2 text-text transition hover:brightness-95"
                     aria-label="Instagram @thesweetsbyayesha (opens in a new tab)"
                   >
                     Instagram

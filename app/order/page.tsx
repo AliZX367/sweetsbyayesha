@@ -65,16 +65,14 @@ const howItWorksSteps = [
 
 export default function OrderPage() {
   return (
-    <div className="site-container-narrow py-14">
-      <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
-        Ready to Order?
-      </h1>
-      <p className="mt-3 text-sm leading-6 text-text/80 sm:text-base">
+    <div className="site-container-narrow site-section">
+      <h1 className="site-h1 text-text">Ready to Order?</h1>
+      <p className="site-lead mt-3">
         Use the form to draft your request, then send it from your own email
         app. We&apos;ll reply to confirm details and timing.
       </p>
 
-      <p className="mt-6 text-sm leading-6 text-text/80">
+      <p className="site-body mt-6">
         <span className="font-semibold text-text">Email:</span>{" "}
         <a
           className="font-medium text-text underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
@@ -112,7 +110,7 @@ export default function OrderPage() {
         <OrderForm />
       </div>
 
-      <p className="mt-6 text-sm leading-6 text-text/80">
+      <p className="site-body mt-6">
         Pickup available near Schaumburg, IL. Delivery options discussed after
         we connect by email.
       </p>

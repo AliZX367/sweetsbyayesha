@@ -94,7 +94,7 @@ const faqCategories = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <details className="group mb-3 overflow-hidden rounded-2xl border border-black/10 bg-background shadow-sm">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-sm font-semibold text-text [&::-webkit-details-marker]:hidden">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-sm font-semibold text-text sm:text-base [&::-webkit-details-marker]:hidden">
         <span>{q}</span>
         <svg
           className="shrink-0 transition-transform duration-200 group-open:rotate-180"
@@ -111,7 +111,9 @@ function FaqItem({ q, a }: { q: string; a: string }) {
           <path d="m6 9 6 6 6-6" />
         </svg>
       </summary>
-      <p className="px-5 pb-4 text-sm leading-6 text-text/80">{a}</p>
+      <p className="px-5 pb-4 text-sm leading-6 text-text/80 sm:text-base">
+        {a}
+      </p>
     </details>
   );
 }
@@ -120,22 +122,20 @@ export default function FaqPage() {
   return (
     <div className="flex flex-col">
       <section className="bg-surface">
-        <div className="site-container-narrow py-14">
-          <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
-            Frequently Asked Questions
-          </h1>
-          <p className="mt-3 text-sm leading-6 text-text/80 sm:text-base">
+        <div className="site-container-narrow site-section">
+          <h1 className="site-h1 text-text">Frequently Asked Questions</h1>
+          <p className="site-lead mt-3">
             Everything you need to know before placing your first order.
           </p>
         </div>
       </section>
 
       <section className="bg-background">
-        <div className="site-container-narrow py-14">
+        <div className="site-container-narrow site-section">
           {faqCategories.map((category, index) => (
             <div key={category.title}>
               <h2
-                className={`font-serif text-lg mb-3 text-text ${index === 0 ? "mt-0" : "mt-8"}`}
+                className={`font-serif text-lg mb-3 text-text sm:text-xl ${index === 0 ? "mt-0" : "mt-8"}`}
               >
                 {category.title}
               </h2>
@@ -146,12 +146,12 @@ export default function FaqPage() {
           ))}
 
           <div className="mt-12 text-center">
-            <p className="text-sm font-semibold text-text">
+            <p className="text-sm font-semibold text-text sm:text-base">
               Still have a question?
             </p>
             <Link
               href="/order"
-              className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="site-button mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Send us a message
             </Link>

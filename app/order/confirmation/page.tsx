@@ -34,7 +34,7 @@ export default async function OrderConfirmationPage({
   const showSummary = Boolean(item);
 
   return (
-    <div className="site-container-narrow py-14">
+    <div className="site-container-narrow site-section">
       <div className="flex justify-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full border border-black/5 bg-surface shadow-sm">
           <svg
