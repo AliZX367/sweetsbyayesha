@@ -169,7 +169,6 @@ export default function Home() {
             description="Bite-sized cake pops dipped and decorated to match your theme—fun, clean, and always party-ready."
             imageSrc="/images/cake-pops.jpg"
             imageAlt="Colorful decorated cake pops on display"
-            priority
             pricing="From $36 / dozen"
             flippable
           />
@@ -178,7 +177,6 @@ export default function Home() {
             description="Soft, gooey, and custom-dipped with sprinkles, drizzle, and details that photograph beautifully."
             imageSrc="/images/oreo-rice-krispie-treats.jpg"
             imageAlt="Square Oreo rice krispies treats with cookie chunks on a bright white surface"
-            priority
             pricing="From $18 / half dozen"
             flippable
           />
@@ -187,7 +185,6 @@ export default function Home() {
             description="From dessert tables to special requests—tell us what you’re celebrating and we’ll plan the perfect treats."
             imageSrc="/images/choc-strawberries.jpg"
             imageAlt="Gourmet chocolate-covered strawberries with decorative toppings"
-            priority
             pricing="Pricing on request"
             flippable
           />

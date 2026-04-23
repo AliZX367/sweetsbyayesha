@@ -145,7 +145,6 @@ export function Navbar() {
               width={64}
               height={64}
               className="h-14 w-14 shrink-0 rounded-full object-cover"
-              priority
             />
             <span className="font-serif text-lg tracking-tight text-text">
               The Sweets by Ayesha
