@@ -74,7 +74,7 @@ export default function ReviewsPage() {
   return (
     <div className="flex flex-col">
       <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <div className="site-container py-14">
           <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
             Wall of Love
           </h1>
@@ -97,7 +97,7 @@ export default function ReviewsPage() {
       </section>
 
       <section className="bg-background">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <div className="site-container py-14">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {REVIEWS.map((review) => (
               <article
@@ -118,7 +118,7 @@ export default function ReviewsPage() {
       </section>
 
       <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <div className="site-container py-14">
           <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
             Had a sweet experience?
           </h2>

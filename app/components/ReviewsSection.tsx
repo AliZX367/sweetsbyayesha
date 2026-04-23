@@ -108,7 +108,7 @@ function ReviewAvatar({ src, name }: { src: string; name: string }) {
 export function ReviewsSection() {
   return (
     <section className="bg-surface/40">
-      <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+      <div className="site-container py-14">
         <h2
           id="customer-reviews-heading"
           className="font-serif text-2xl tracking-tight text-text sm:text-3xl"

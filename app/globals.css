@@ -72,3 +72,13 @@ a {
     animation: none;
   }
 }
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10;
+  }
+
+  .site-container-narrow {
+    @apply mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-10;
+  }
+}

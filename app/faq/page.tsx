@@ -120,7 +120,7 @@ export default function FaqPage() {
   return (
     <div className="flex flex-col">
       <section className="bg-surface">
-        <div className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+        <div className="site-container-narrow py-14">
           <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
             Frequently Asked Questions
           </h1>
@@ -131,7 +131,7 @@ export default function FaqPage() {
       </section>
 
       <section className="bg-background">
-        <div className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+        <div className="site-container-narrow py-14">
           {faqCategories.map((category, index) => (
             <div key={category.title}>
               <h2

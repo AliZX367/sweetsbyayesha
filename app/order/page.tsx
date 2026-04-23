@@ -65,7 +65,7 @@ const howItWorksSteps = [
 
 export default function OrderPage() {
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <div className="site-container-narrow py-14">
       <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
         Ready to Order?
       </h1>

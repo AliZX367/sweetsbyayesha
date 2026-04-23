@@ -34,7 +34,7 @@ export function HeroSection({
         <div className="absolute inset-0 bg-linear-to-r from-background/85 via-background/50 to-background/10" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+      <div className="site-container relative py-16 sm:py-24">
         <div className="max-w-2xl">
           {eyebrow ? (
             <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-background/80 px-3 py-1 text-xs font-semibold text-text shadow-sm ring-1 ring-black/5">

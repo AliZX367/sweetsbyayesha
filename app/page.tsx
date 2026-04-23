@@ -64,7 +64,7 @@ export default function Home() {
 
       <FadeIn delay={0}>
         <section className="border-y border-black/5 bg-surface">
-          <div className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
+          <div className="site-container py-5">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <div className="flex items-center gap-2 text-sm font-medium text-text/80">
               <svg
@@ -146,7 +146,7 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn delay={100}>
-        <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <section className="site-container py-14">
         <div className="flex items-end justify-between gap-6">
           <div className="max-w-2xl">
             <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
@@ -203,7 +203,7 @@ export default function Home() {
 
       <FadeIn delay={0}>
         <section className="bg-background">
-          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+          <div className="site-container py-14">
             <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
               Perfect for every occasion
             </h2>
@@ -234,7 +234,7 @@ export default function Home() {
 
       <FadeIn delay={0}>
         <section className="bg-surface">
-          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+          <div className="site-container py-14">
             <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <div className="space-y-3">
               <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">

@@ -47,7 +47,7 @@ function SocialIcon({
 export function Footer() {
   return (
     <footer className="border-t border-black/5 bg-surface">
-      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3">
+      <div className="site-container grid gap-8 py-10 md:grid-cols-3">
         <div className="space-y-3">
           <div className="flex items-center gap-3">
             <Image

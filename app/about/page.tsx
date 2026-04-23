@@ -49,7 +49,7 @@ export default function AboutPage() {
   return (
     <div>
       <section className="bg-background">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center">
+        <div className="site-container grid gap-10 py-14 md:grid-cols-2 md:items-center">
           <div className="space-y-4">
             <div className="flex justify-center mb-8 md:justify-start">
               <Image
@@ -88,7 +88,7 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <div className="site-container py-14">
           <div className="grid gap-6 md:grid-cols-3">
             <div className="rounded-3xl border border-black/5 bg-background p-6 shadow-sm md:col-span-1">
               <div className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-xs font-semibold text-text">

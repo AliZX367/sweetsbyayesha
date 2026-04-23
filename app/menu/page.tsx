@@ -106,7 +106,7 @@ export default function MenuPage() {
   return (
     <div>
       <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <div className="site-container py-14">
           <h1 className="font-serif text-3xl tracking-tight text-text sm:text-4xl">
             Our Treats
           </h1>
@@ -128,7 +128,7 @@ export default function MenuPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+      <section className="site-container py-14">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 *:min-w-0">
           {treats.map((t) => (
             <TreatCard
@@ -143,7 +143,7 @@ export default function MenuPage() {
       </section>
 
       <section className="bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <div className="site-container py-14">
           <h2 className="font-serif text-2xl tracking-tight text-text sm:text-3xl">
             How to order
           </h2>
@@ -168,7 +168,7 @@ export default function MenuPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+      <section className="site-container py-12">
         <p className="mt-4 text-sm text-text/80">
           Have questions?{" "}
           <Link href="/faq" className="font-semibold text-text underline">
