@@ -307,36 +307,46 @@ export default function Home() {
                 Meet Ayesha
               </Link>
             </div>
-            <div className="rounded-3xl border border-black/5 bg-background p-6 shadow-sm">
-              <div className="space-y-2">
-                <div className="text-sm font-semibold text-text sm:text-base">
-                  Follow along
-                </div>
-                <p className="site-body">
-                  Follow along for behind-the-scenes baking, new drops, and
-                  custom designs.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <a
-                    href="https://www.tiktok.com/@thesweetsbyayesha"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="site-button rounded-full border border-black/10 bg-surface px-4 py-2 text-text transition hover:brightness-95"
-                    aria-label="TikTok @thesweetsbyayesha (opens in a new tab)"
-                  >
-                    TikTok
-                  </a>
-                  <a
-                    href="https://www.instagram.com/thesweetsbyayesha"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="site-button rounded-full border border-black/10 bg-surface px-4 py-2 text-text transition hover:brightness-95"
-                    aria-label="Instagram @thesweetsbyayesha (opens in a new tab)"
-                  >
-                    Instagram
-                  </a>
-                </div>
+            <div className="space-y-4 rounded-3xl border border-black/5 bg-background p-6 shadow-sm">
+              <div className="text-sm font-semibold text-text sm:text-base">
+                Why customers love Ayesha&apos;s treats
               </div>
+              <ul className="space-y-3">
+                {[
+                  {
+                    emoji: "✨",
+                    text: "Every order is made fresh, never pre-made or frozen",
+                  },
+                  {
+                    emoji: "🎨",
+                    text: "Fully custom — your theme, colors, and flavors",
+                  },
+                  {
+                    emoji: "📍",
+                    text: "Pickup near Schaumburg, IL or local delivery",
+                  },
+                  {
+                    emoji: "💬",
+                    text: "Ayesha replies within 24–48 hours to confirm",
+                  },
+                ].map(({ emoji, text }) => (
+                  <li
+                    key={text}
+                    className="flex items-start gap-3 text-sm leading-6 text-text/80 sm:text-base"
+                  >
+                    <span className="mt-0.5 shrink-0 text-base" aria-hidden="true">
+                      {emoji}
+                    </span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/order"
+                className="site-button inline-flex w-full items-center justify-center rounded-full bg-primary px-5 py-3 text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                Place an order
+              </Link>
             </div>
           </div>
         </div>

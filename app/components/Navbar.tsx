@@ -130,7 +130,7 @@ export function Navbar() {
 
       <div
         className={cx(
-          "fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden",
+          "fixed inset-0 z-200 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -141,7 +141,7 @@ export function Navbar() {
 
       <div
         className={cx(
-          "fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-background shadow-2xl transition-transform duration-300 ease-in-out md:hidden",
+          "fixed inset-y-0 right-0 z-201 flex w-72 flex-col bg-background shadow-2xl transition-transform duration-300 ease-in-out md:hidden",
           open ? "translate-x-0" : "translate-x-full"
         )}
         aria-hidden={!open || undefined}

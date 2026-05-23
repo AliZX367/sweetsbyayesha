@@ -5,7 +5,7 @@ import {
   SITE_URL,
   TWITTER_SITE,
 } from "@/lib/site-config";
-import { ORDER_INQUIRY_EMAIL } from "./constants";
+import { ORDER_DISPLAY_EMAIL } from "./constants";
 import { OrderForm } from "./ui/OrderForm";
 
 export const metadata: Metadata = {
@@ -77,9 +77,9 @@ export default function OrderPage() {
         <span className="font-semibold text-text">Email:</span>{" "}
         <a
           className="font-medium text-text underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
-          href={`mailto:${ORDER_INQUIRY_EMAIL}`}
+          href={`mailto:${ORDER_DISPLAY_EMAIL}`}
         >
-          {ORDER_INQUIRY_EMAIL}
+          {ORDER_DISPLAY_EMAIL}
         </a>
       </p>
 

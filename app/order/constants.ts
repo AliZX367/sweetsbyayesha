@@ -1,6 +1,7 @@
 /** Replace with your real inbox before going live. */
 export const ORDER_INQUIRY_EMAIL = "raza.ahmad0131@gmail.com";
 export const ORDER_INQUIRY_CC_EMAIL = "ayesha.m2019@gmail.com";
+export const ORDER_DISPLAY_EMAIL = "ayesha.m2019@gmail.com";
 
 export type MenuItem = {
   label: string;
