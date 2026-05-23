@@ -4,12 +4,13 @@ import Link from "next/link";
 const SOCIAL = {
   tiktok: "https://www.tiktok.com/@thesweetsbyayesha",
   instagram: "https://www.instagram.com/thesweetsbyayesha",
+  facebook: "https://www.facebook.com/marketplace/profile/61570793967805/",
 } as const;
 
 function SocialIcon({
   label,
 }: {
-  label: "TikTok" | "Instagram";
+  label: "TikTok" | "Instagram" | "Facebook";
 }) {
   if (label === "TikTok") {
     return (
@@ -23,6 +24,23 @@ function SocialIcon({
           aria-hidden="true"
         >
           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.75a8.17 8.17 0 0 0 4.78 1.52V6.82a4.85 4.85 0 0 1-1.01-.13z" />
+        </svg>
+      </span>
+    );
+  }
+
+  if (label === "Facebook") {
+    return (
+      <span className="inline-flex items-center justify-center rounded-full border border-black/10 bg-background p-2 text-text">
+        <span className="sr-only">{label}</span>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
         </svg>
       </span>
     );
@@ -117,22 +135,18 @@ export function Footer() {
               <span className="font-semibold">Instagram</span>
               <span className="text-text/60">@thesweetsbyayesha</span>
             </a>
+            <a
+              href={SOCIAL.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-text/80 hover:text-text"
+              aria-label="Facebook (opens in a new tab)"
+            >
+              <SocialIcon label="Facebook" />
+              <span className="font-semibold">Facebook</span>
+              <span className="text-text/60">Sweets by Ayesha</span>
+            </a>
           </div>
-
-          {/* Contact details coming soon.
-          <div className="pt-2 text-sm text-text/80">
-            <div className="flex flex-col gap-1">
-              <div>
-                <span className="font-semibold text-text">Email:</span>{" "}
-                <span className="text-text/60"></span>
-              </div>
-              <div>
-                <span className="font-semibold text-text">Phone:</span>{" "}
-                <span className="text-text/60"></span>
-              </div>
-            </div>
-          </div>
-          */}
 
           <p className="text-xs text-text/60">
             © {new Date().getFullYear()} The Sweets by Ayesha. All rights reserved.

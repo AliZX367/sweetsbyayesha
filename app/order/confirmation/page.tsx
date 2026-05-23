@@ -16,6 +16,11 @@ function firstString(
   return Array.isArray(value) ? value[0] : value;
 }
 
+function allStrings(value: string | string[] | undefined): string[] {
+  if (value === undefined) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
 export default async function OrderConfirmationPage({
   searchParams,
 }: {
@@ -28,16 +33,24 @@ export default async function OrderConfirmationPage({
 }) {
   const sp = await searchParams;
   const name = firstString(sp.name);
-  const item = firstString(sp.item);
-  const qty = firstString(sp.qty);
+  const items = allStrings(sp.item);
+  const qtys = allStrings(sp.qty);
   const date = firstString(sp.date);
-  const showSummary = Boolean(item);
+  const showSummary = items.length > 0;
+
+  const item = items[0];
+  const qty = qtys[0];
 
   const calendarIcsHref =
     date && showSummary
-      ? `/order/calendar?date=${encodeURIComponent(date)}&item=${encodeURIComponent(
-          item ?? ""
-        )}&qty=${encodeURIComponent(qty ?? "")}`
+      ? (() => {
+          const p = new URLSearchParams({ date });
+          items.forEach((it, i) => {
+            p.append("item", it);
+            if (qtys[i]) p.append("qty", qtys[i]);
+          });
+          return `/order/calendar?${p.toString()}`;
+        })()
       : undefined;
 
   const googleCalendarHref =
@@ -63,6 +76,44 @@ export default async function OrderConfirmationPage({
           )}&details=${encodeURIComponent(details)}`;
         })()
       : undefined;
+
+  const outlookCalendarHref =
+    date && showSummary
+      ? (() => {
+          const title = ["Treat pickup", item ? `— ${item}` : undefined]
+            .filter(Boolean)
+            .join(" ");
+          const startdt = `${date.replaceAll("-", "")}T000000Z`;
+          const enddt = `${date.replaceAll("-", "")}T235900Z`;
+          const body = [
+            "Order pickup reminder.",
+            ...items.map((it, i) => (qtys[i] ? `${it} × ${qtys[i]}` : it)),
+            "Pickup details confirmed by email.",
+          ].join("\n");
+          return `https://outlook.live.com/calendar/0/action/compose?rru=addevent&subject=${encodeURIComponent(title)}&startdt=${startdt}&enddt=${enddt}&body=${encodeURIComponent(body)}`;
+        })()
+      : undefined;
+
+  const yahooCalendarHref =
+    date && showSummary
+      ? (() => {
+          const title = ["Treat pickup", item ? `— ${item}` : undefined]
+            .filter(Boolean)
+            .join(" ");
+          const st = `${date.replaceAll("-", "")}T000000Z`;
+          const et = `${date.replaceAll("-", "")}T235900Z`;
+          const desc = [
+            "Order pickup reminder.",
+            ...items.map((it, i) => (qtys[i] ? `${it} × ${qtys[i]}` : it)),
+            "Pickup details confirmed by email.",
+          ].join(" | ");
+          return `https://calendar.yahoo.com/?v=60&title=${encodeURIComponent(title)}&st=${st}&et=${et}&desc=${encodeURIComponent(desc)}`;
+        })()
+      : undefined;
+
+  const reminderIcsHref = calendarIcsHref
+    ? `${calendarIcsHref}&reminder=1`
+    : undefined;
 
   return (
     <div className="site-container-narrow site-section">
@@ -90,7 +141,7 @@ export default async function OrderConfirmationPage({
         Check your email app
       </h1>
       <p className="mx-auto mt-3 max-w-md text-center text-sm leading-6 text-text/80">
-        Your inquiry draft is ready in your mail app. Once you tap{" "}
+        Your inquiry is pre-filled and ready in your mail app. Once you tap{" "}
         <strong className="text-text">Send</strong>, Ayesha will be in touch
         within 24–48 hours to confirm your order.
       </p>
@@ -118,15 +169,15 @@ export default async function OrderConfirmationPage({
               questions, and share final pricing.
             </p>
           </div>
-          <div>
-            <p className="text-sm font-semibold text-text">
-              Confirm and pay your deposit
-            </p>
-            <p className="mt-1 text-sm leading-6 text-text/70">
-              Once you agree on the details, a 50% deposit secures your date.
-              Balance is due at pickup.
-            </p>
-          </div>
+    <div>
+      <p className="text-sm font-semibold text-text">
+        Confirm your order
+      </p>
+      <p className="mt-1 text-sm leading-6 text-text/70">
+        Once Ayesha confirms the details and pricing, you&apos;re all set.
+        Payment is due at pickup or delivery.
+      </p>
+    </div>
         </div>
       </div>
 
@@ -142,16 +193,23 @@ export default async function OrderConfirmationPage({
                 <dd className="font-semibold text-text">{name}</dd>
               </>
             ) : null}
-            {item ? (
+            {items.length > 0 ? (
               <>
-                <dt className="text-text/60">Item</dt>
-                <dd className="font-semibold text-text">{item}</dd>
-              </>
-            ) : null}
-            {qty ? (
-              <>
-                <dt className="text-text/60">Quantity</dt>
-                <dd className="font-semibold text-text">{qty}</dd>
+                <dt className="self-start text-text/60">
+                  {items.length === 1 ? "Item" : "Items"}
+                </dt>
+                <dd className="space-y-0.5">
+                  {items.map((it, i) => (
+                    <p key={i} className="font-semibold text-text">
+                      {it}
+                      {qtys[i] ? (
+                        <span className="ml-2 font-normal text-text/60">
+                          × {qtys[i]}
+                        </span>
+                      ) : null}
+                    </p>
+                  ))}
+                </dd>
               </>
             ) : null}
             {date ? (
@@ -164,36 +222,100 @@ export default async function OrderConfirmationPage({
         </div>
       ) : null}
 
-      {calendarIcsHref || googleCalendarHref ? (
-        <div className="mt-6 rounded-2xl border border-black/10 bg-surface px-5 py-4 shadow-sm">
+      {date && showSummary ? (
+        <div className="mt-6 rounded-3xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
           <p className="text-xs font-semibold tracking-widest text-text/50 uppercase">
-            Add to calendar
+            Save your date
           </p>
           <p className="mt-2 text-sm leading-6 text-text/70">
-            Save your date now — Apple Calendar can open the{" "}
-            <span className="font-semibold text-text">.ics</span> file, and Google
-            Calendar works great on Android.
+            Add your pickup date to any calendar. Apple and Outlook .ics files
+            include a built-in 2-day reminder. For Google and Yahoo, set a
+            reminder manually after adding.
           </p>
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {calendarIcsHref ? (
               <a
                 href={calendarIcsHref}
-                className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95"
+                className="flex flex-col items-center gap-2 rounded-2xl border border-black/10 bg-background p-4 text-center text-sm font-medium text-text shadow-sm transition hover:bg-surface"
               >
-                Add to Apple Calendar (.ics)
+                <span className="text-2xl" aria-hidden="true">
+                  🍎
+                </span>
+                <span>Apple Calendar</span>
+                <span className="text-xs text-text/50">
+                  Includes 2-day reminder
+                </span>
               </a>
             ) : null}
+
             {googleCalendarHref ? (
               <a
                 href={googleCalendarHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-black/10 bg-background px-6 py-3 text-sm font-semibold text-text transition hover:bg-surface"
+                className="flex flex-col items-center gap-2 rounded-2xl border border-black/10 bg-background p-4 text-center text-sm font-medium text-text shadow-sm transition hover:bg-surface"
               >
-                Add to Google Calendar
+                <span className="text-2xl" aria-hidden="true">
+                  📅
+                </span>
+                <span>Google Calendar</span>
+                <span className="text-xs text-text/50">
+                  Set reminder manually
+                </span>
+              </a>
+            ) : null}
+
+            {outlookCalendarHref ? (
+              <a
+                href={outlookCalendarHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 rounded-2xl border border-black/10 bg-background p-4 text-center text-sm font-medium text-text shadow-sm transition hover:bg-surface"
+              >
+                <span className="text-2xl" aria-hidden="true">
+                  📧
+                </span>
+                <span>Outlook</span>
+                <span className="text-xs text-text/50">
+                  Includes 2-day reminder
+                </span>
+              </a>
+            ) : null}
+
+            {yahooCalendarHref ? (
+              <a
+                href={yahooCalendarHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 rounded-2xl border border-black/10 bg-background p-4 text-center text-sm font-medium text-text shadow-sm transition hover:bg-surface"
+              >
+                <span className="text-2xl" aria-hidden="true">
+                  📆
+                </span>
+                <span>Yahoo Calendar</span>
+                <span className="text-xs text-text/50">
+                  Set reminder manually
+                </span>
               </a>
             ) : null}
           </div>
+
+          {reminderIcsHref ? (
+            <div className="mt-4 border-t border-black/5 pt-4">
+              <a
+                href={reminderIcsHref}
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-background px-4 py-2 text-sm font-medium text-text shadow-sm transition hover:bg-surface"
+              >
+                <span aria-hidden="true">🔔</span>
+                Download reminder (.ics)
+              </a>
+              <p className="mt-1 text-xs text-text/60">
+                A standalone reminder file — works with Apple Reminders,
+                Outlook, and most calendar apps.
+              </p>
+            </div>
+          ) : null}
         </div>
       ) : null}
 
@@ -220,6 +342,12 @@ export default async function OrderConfirmationPage({
           className="inline-flex items-center justify-center rounded-full border border-black/10 bg-background px-6 py-3 text-sm font-semibold text-text transition hover:bg-surface"
         >
           Back to home
+        </Link>
+        <Link
+          href="/order/history"
+          className="inline-flex items-center justify-center rounded-full border border-black/10 bg-background px-6 py-3 text-sm font-semibold text-text transition hover:bg-surface"
+        >
+          View order history
         </Link>
       </div>
     </div>

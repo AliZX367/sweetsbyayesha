@@ -130,37 +130,36 @@ export function Navbar() {
 
       <div
         className={cx(
-          "fixed inset-0 z-40 flex flex-col bg-background transition-all duration-300 ease-in-out md:hidden",
+          "fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden",
           open
-            ? "pointer-events-auto translate-x-0 opacity-100"
-            : "pointer-events-none translate-x-4 opacity-0"
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        )}
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+      />
+
+      <div
+        className={cx(
+          "fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-background shadow-2xl transition-transform duration-300 ease-in-out md:hidden",
+          open ? "translate-x-0" : "translate-x-full"
         )}
         aria-hidden={!open || undefined}
         inert={!open || undefined}
       >
-        <div className="flex items-center justify-between border-b border-black/5 px-4 py-4">
-          <Link href="/" className="inline-flex min-w-0 items-center gap-3">
-            <Image
-              src="/brand-logo.png"
-              alt="The Sweets by Ayesha"
-              width={64}
-              height={64}
-              className="h-14 w-14 shrink-0 rounded-full object-cover"
-            />
-            <span className="font-serif text-lg tracking-tight text-text">
-              The Sweets by Ayesha
-            </span>
-          </Link>
+        <div className="flex items-center justify-between border-b border-black/5 px-5 py-4">
+          <span className="font-serif text-base font-semibold tracking-tight text-text">
+            Menu
+          </span>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-full border border-black/10 bg-surface p-2 text-text shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex items-center justify-center rounded-full border border-black/10 bg-surface p-2 text-text transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             aria-label="Close menu"
             onClick={() => setOpen(false)}
           >
-            <span className="sr-only">Close menu</span>
             <svg
-              width="20"
-              height="20"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -174,36 +173,34 @@ export function Navbar() {
           </button>
         </div>
 
-        <nav
-          className="flex flex-1 flex-col justify-center px-4 sm:px-6"
-          aria-label="Mobile"
-        >
-          <div className="flex flex-col gap-2">
-            {navLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={cx(
-                  "w-full rounded-2xl px-4 py-4 text-center text-lg font-semibold transition",
-                  activeHref === l.href
-                    ? "bg-surface text-text"
-                    : "text-text/80 hover:bg-surface hover:text-text"
-                )}
-              >
-                {l.label}
-              </Link>
-            ))}
+        <nav className="flex flex-1 flex-col gap-1 px-3 py-4" aria-label="Mobile">
+          {navLinks.map((l) => (
             <Link
-              href="/order"
-              className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-primary px-4 py-4 text-base font-semibold text-background shadow-sm transition hover:brightness-95"
+              key={l.href}
+              href={l.href}
+              className={cx(
+                "flex items-center rounded-xl px-4 py-3 text-sm font-medium transition",
+                activeHref === l.href
+                  ? "bg-surface text-text"
+                  : "text-text/80 hover:bg-surface hover:text-text"
+              )}
             >
-              Order Now
+              {l.label}
             </Link>
-          </div>
+          ))}
         </nav>
 
-        <div className="border-t border-black/5 px-6 py-6 text-center text-xs text-text/50">
-          The Sweets by Ayesha · Schaumburg, IL
+        <div className="space-y-3 border-t border-black/5 px-4 py-5">
+          <Link
+            href="/order"
+            onClick={() => setOpen(false)}
+            className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            Order Now
+          </Link>
+          <p className="text-center text-xs text-text/40">
+            The Sweets by Ayesha · Schaumburg, IL
+          </p>
         </div>
       </div>
     </header>

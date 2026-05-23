@@ -49,6 +49,24 @@ export const metadata: Metadata = {
   },
 };
 
+const CELEBRATION_OCCASIONS = [
+  { emoji: "🎂", label: "Birthdays" },
+  { emoji: "💍", label: "Weddings & Engagements" },
+  { emoji: "🌙", label: "Eid & Ramadan" },
+  { emoji: "🎓", label: "Graduations" },
+  { emoji: "🎉", label: "Custom Events" },
+] as const;
+
+const BUSINESS_OCCASIONS = [
+  { emoji: "🍽️", label: "Restaurant Catering" },
+  { emoji: "🏢", label: "Corporate Events" },
+  { emoji: "🤝", label: "Wholesale Orders" },
+  { emoji: "🎊", label: "Office & Team Parties" },
+] as const;
+
+const occasionPillClassName =
+  "inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base";
+
 export default function Home() {
   return (
     <div className="flex flex-col">
@@ -197,31 +215,77 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn delay={0}>
-        <section className="bg-background">
+        <section
+          className="bg-background"
+          aria-labelledby="occasions-heading"
+        >
           <div className="site-container site-section">
-            <h2 className="site-h2 text-text">Perfect for every occasion</h2>
-          <p className="site-lead mt-3 max-w-2xl">
-            From school events to weddings — we&apos;ve got your celebration
-            covered.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
-              🎂 Birthdays
-            </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
-              💍 Weddings &amp; Engagements
-            </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
-              🌙 Eid &amp; Ramadan
-            </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
-              🎓 Graduations
-            </span>
-            <span className="inline-flex items-center rounded-full border border-black/10 bg-surface px-4 py-2 text-sm font-medium text-text sm:text-base">
-              🎉 Custom Events
-            </span>
+            <h2 id="occasions-heading" className="site-h2 text-text">
+              Perfect for every occasion
+            </h2>
+            <p className="site-lead mt-3 max-w-2xl">
+              From intimate celebrations to restaurant partnerships and corporate
+              catering — we&apos;ve got your order covered.
+            </p>
+
+            <div className="mt-8 space-y-6">
+              <div>
+                <h3 className="text-xs font-semibold tracking-widest text-text/50 uppercase">
+                  Celebrations
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {CELEBRATION_OCCASIONS.map((occasion) => (
+                    <span
+                      key={occasion.label}
+                      className={occasionPillClassName}
+                    >
+                      {occasion.emoji} {occasion.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xs font-semibold tracking-widest text-text/50 uppercase">
+                  Business &amp; Catering
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {BUSINESS_OCCASIONS.map((occasion) => (
+                    <span
+                      key={occasion.label}
+                      className={occasionPillClassName}
+                    >
+                      {occasion.emoji} {occasion.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <aside
+              className="mt-8 rounded-2xl border border-black/10 bg-surface p-5 sm:p-6"
+              aria-labelledby="catering-callout-heading"
+            >
+              <h3
+                id="catering-callout-heading"
+                className="font-serif text-xl tracking-tight text-text sm:text-2xl"
+              >
+                Supplying restaurants &amp; caterers
+              </h3>
+              <p className="site-body mt-3 max-w-2xl text-text/80">
+                We offer bulk homemade dessert orders for restaurants, cafés,
+                and catering companies. Whether it&apos;s a weekly standing
+                order or a one-time event, reach out and we&apos;ll work out a
+                custom arrangement.
+              </p>
+              <Link
+                href="/order"
+                className="site-button mt-5 inline-flex w-full items-center justify-center rounded-full bg-primary px-5 py-3 text-background shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:w-auto"
+              >
+                Get a catering quote
+              </Link>
+            </aside>
           </div>
-        </div>
         </section>
       </FadeIn>
 

@@ -18,7 +18,7 @@ const faqCategories = [
       },
       {
         q: "How far in advance should I order?",
-        a: "At least 5–7 days for most orders. For large events, wedding dessert tables, or big quantities, please reach out 2–4 weeks in advance so we can plan properly.",
+        a: "We require at least 24 hours after your order is confirmed before pickup or delivery. For large orders, dessert tables, or events, we recommend reaching out as early as possible so Ayesha has time to plan — but there's no fixed minimum beyond 24 hours post-confirmation.",
       },
       {
         q: "Do you take rush orders?",
@@ -61,10 +61,6 @@ const faqCategories = [
       {
         q: "What payment methods do you accept?",
         a: "We accept cash, Venmo, Zelle, and Apple Pay. Payment details are shared when your order is confirmed.",
-      },
-      {
-        q: "Is a deposit required?",
-        a: "Yes — a 50% deposit is required to secure your order date. The remaining balance is due at pickup.",
       },
     ],
   },

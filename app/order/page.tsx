@@ -58,8 +58,9 @@ const howItWorksSteps = [
       "Ayesha replies to confirm your order details and final pricing.",
   },
   {
-    title: "Pick up your treats",
-    body: "Collect near Schaumburg, IL on your agreed date.",
+    title: "Pick up or get delivery",
+    body:
+      "Collect near Schaumburg, IL on your agreed date. Delivery is available — pickup is preferred for all orders.",
   },
 ] as const;
 
@@ -106,13 +107,24 @@ export default function OrderPage() {
         </ol>
       </section>
 
+      <div className="mt-8 rounded-3xl border border-black/5 bg-surface p-6 shadow-sm">
+        <h2 className="text-sm font-semibold text-text sm:text-base">
+          Please note
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-text/70 sm:text-base">
+          Once your order is confirmed by Ayesha, we require at least 24 hours
+          before your pickup or delivery time. We&apos;ll confirm your final
+          window by email after reviewing your request.
+        </p>
+      </div>
+
       <div className="mt-8 rounded-3xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
         <OrderForm />
       </div>
 
       <p className="site-body mt-6">
-        Pickup available near Schaumburg, IL. Delivery options discussed after
-        we connect by email.
+        Pickup is preferred near Schaumburg, IL. Delivery is available — just
+        mention it in your request and we&apos;ll confirm the details.
       </p>
     </div>
   );

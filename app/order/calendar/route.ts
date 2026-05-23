@@ -17,12 +17,22 @@ function asDateOnly(dateIso: string): string | undefined {
   return dateIso.replaceAll("-", "")
 }
 
+function toIcsDateOnly(d: Date): string {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, "0")
+  const day = String(d.getDate()).padStart(2, "0")
+  return `${y}${m}${day}`
+}
+
 export function GET(req: Request) {
   const { searchParams } = new URL(req.url)
 
   const date = firstString(searchParams.get("date") ?? undefined)
-  const item = firstString(searchParams.get("item") ?? undefined)
-  const qty = firstString(searchParams.get("qty") ?? undefined)
+  const rawItems = searchParams.getAll("item")
+  const rawQtys = searchParams.getAll("qty")
+  const item = rawItems[0]
+  const qty = rawQtys[0]
+  const isReminder = searchParams.get("reminder") === "1"
 
   const dateOnly = date ? asDateOnly(date) : undefined
   if (!dateOnly) {
@@ -30,17 +40,40 @@ export function GET(req: Request) {
   }
 
   const summaryParts = ["Treat pickup", item ? `— ${item}` : undefined, qty ? `(${qty})` : undefined].filter(Boolean)
-  const summary = icsEscape(summaryParts.join(" "))
-  const description = icsEscape(
-    [
-      "Order pickup reminder.",
-      item ? `Item: ${item}` : undefined,
-      qty ? `Quantity: ${qty}` : undefined,
-      "Pickup details will be confirmed by email.",
-    ]
-      .filter(Boolean)
-      .join("\n")
-  )
+  const summaryPlain = summaryParts.join(" ")
+  const summary = isReminder
+    ? icsEscape(`Reminder: ${summaryPlain} pickup is soon!`)
+    : icsEscape(summaryPlain)
+
+  const itemLines = rawItems
+    .map((it, i) => (rawQtys[i] ? `${it} × ${rawQtys[i]}` : it))
+    .join("\\n")
+
+  const description = isReminder
+    ? icsEscape(
+        [
+          "2-DAY REMINDER — your treat pickup is coming up!",
+          "",
+          `Pickup date: ${date}`,
+          "",
+          "Order pickup reminder.",
+          rawItems.length > 0 ? `Items:\\n${itemLines}` : undefined,
+          "Pickup details confirmed by email.",
+          "Note: A 2-day reminder has been set for this event.",
+        ]
+          .filter(Boolean)
+          .join("\\n")
+      )
+    : icsEscape(
+        [
+          "Order pickup reminder.",
+          rawItems.length > 0 ? `Items:\\n${itemLines}` : undefined,
+          "Pickup details confirmed by email.",
+          "Note: A 2-day reminder has been set for this event.",
+        ]
+          .filter(Boolean)
+          .join("\\n")
+      )
 
   const now = new Date()
   const dtstamp =
@@ -51,13 +84,17 @@ export function GET(req: Request) {
       .replaceAll(".", "")
       .slice(0, 15) + "Z"
 
-  // All-day event: DTEND is exclusive, so add one day.
-  const start = dateOnly
-  const endDate = new Date(`${date}T00:00:00`)
-  endDate.setDate(endDate.getDate() + 1)
-  const end = endDate.toISOString().slice(0, 10).replaceAll("-", "")
+  const eventDate = new Date(`${date}T00:00:00`)
+  if (isReminder) {
+    eventDate.setDate(eventDate.getDate() - 1)
+  }
 
-  const uid = `order-${start}-${Math.random().toString(16).slice(2)}@sweetsbyayesha.com`
+  const start = toIcsDateOnly(eventDate)
+  const endDate = new Date(eventDate)
+  endDate.setDate(endDate.getDate() + 1)
+  const end = toIcsDateOnly(endDate)
+
+  const uid = `order-${isReminder ? "reminder-" : ""}${start}-${Math.random().toString(16).slice(2)}@sweetsbyayesha.com`
 
   const ics = [
     "BEGIN:VCALENDAR",
@@ -72,17 +109,25 @@ export function GET(req: Request) {
     `DESCRIPTION:${description}`,
     `DTSTART;VALUE=DATE:${start}`,
     `DTEND;VALUE=DATE:${end}`,
+    "BEGIN:VALARM",
+    "TRIGGER:-P2D",
+    "ACTION:DISPLAY",
+    "DESCRIPTION:Reminder: Your treat pickup is in 2 days!",
+    "END:VALARM",
     "END:VEVENT",
     "END:VCALENDAR",
     "",
   ].join("\r\n")
 
+  const filename = isReminder
+    ? `treat-reminder-${start}.ics`
+    : `treat-pickup-${start}.ics`
+
   return new Response(ics, {
     headers: {
       "Content-Type": "text/calendar; charset=utf-8",
-      "Content-Disposition": `attachment; filename="treat-pickup-${start}.ics"`,
+      "Content-Disposition": `attachment; filename="${filename}"`,
       "Cache-Control": "no-store",
     },
   })
 }
-

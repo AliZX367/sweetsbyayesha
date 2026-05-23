@@ -1,5 +1,6 @@
 /** Replace with your real inbox before going live. */
-export const ORDER_INQUIRY_EMAIL = "orders@thesweetsbyayesha.com";
+export const ORDER_INQUIRY_EMAIL = "raza.ahmad0131@gmail.com";
+export const ORDER_INQUIRY_CC_EMAIL = "ayesha.m2019@gmail.com";
 
 export type MenuItem = {
   label: string;
@@ -15,42 +16,42 @@ export type MenuItem = {
 export const MENU_ITEMS: MenuItem[] = [
   {
     label: "Cake Pops",
-    minQty: 12,
+    minQty: 1,
     maxQty: 360,
-    qtyStep: 12,
+    qtyStep: 1,
     unit: "pops",
-    minLeadDays: 7,
-    largeLeadDays: 14,
+    minLeadDays: 1,
+    largeLeadDays: 3,
     largeBatchAt: 144,
   },
   {
     label: "Rice Krispie Treats",
-    minQty: 6,
+    minQty: 1,
     maxQty: 240,
-    qtyStep: 6,
+    qtyStep: 1,
     unit: "treats",
-    minLeadDays: 7,
-    largeLeadDays: 14,
+    minLeadDays: 1,
+    largeLeadDays: 3,
     largeBatchAt: 96,
   },
   {
     label: "Mango Dessert Cups",
-    minQty: 6,
+    minQty: 1,
     maxQty: 180,
-    qtyStep: 6,
+    qtyStep: 1,
     unit: "cups",
-    minLeadDays: 7,
-    largeLeadDays: 14,
+    minLeadDays: 1,
+    largeLeadDays: 3,
     largeBatchAt: 72,
   },
   {
     label: "Chocolate Strawberries",
-    minQty: 6,
+    minQty: 1,
     maxQty: 180,
-    qtyStep: 6,
+    qtyStep: 1,
     unit: "strawberries",
-    minLeadDays: 7,
-    largeLeadDays: 14,
+    minLeadDays: 1,
+    largeLeadDays: 3,
     largeBatchAt: 72,
   },
   {
@@ -59,8 +60,8 @@ export const MENU_ITEMS: MenuItem[] = [
     maxQty: 1000,
     qtyStep: 1,
     unit: "items",
-    minLeadDays: 10,
-    largeLeadDays: 21,
+    minLeadDays: 1,
+    largeLeadDays: 5,
     largeBatchAt: 150,
   },
 ];
