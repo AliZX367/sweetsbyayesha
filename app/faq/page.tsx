@@ -65,15 +65,15 @@ const faqCategories = [
     ],
   },
   {
-    title: "Pickup & Delivery",
+    title: "Delivery & Pickup",
     items: [
       {
         q: "Where are you located?",
-        a: "We're based near Schaumburg, IL. The exact pickup address is shared with you once your order is confirmed.",
+        a: "We're based near Schaumburg, IL. The exact address for pickup (if applicable) is shared once your order is confirmed. Delivery is available for most local orders.",
       },
       {
         q: "Do you deliver?",
-        a: "Local delivery is available in select areas around Schaumburg. Mention your address when you reach out and we'll let you know if we can get to you.",
+        a: "Yes — delivery is our preferred option for most orders. Mention your address when you reach out and Ayesha will confirm if your area is covered.",
       },
       {
         q: "Can someone else pick up my order on my behalf?",

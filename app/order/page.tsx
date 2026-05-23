@@ -58,9 +58,9 @@ const howItWorksSteps = [
       "Ayesha replies to confirm your order details and final pricing.",
   },
   {
-    title: "Pick up or get delivery",
+    title: "Get delivery or pick up",
     body:
-      "Collect near Schaumburg, IL on your agreed date. Delivery is available — pickup is preferred for all orders.",
+      "Delivery is available near Schaumburg — pickup is also an option. Ayesha will confirm your preference by email.",
   },
 ] as const;
 
@@ -123,8 +123,8 @@ export default function OrderPage() {
       </div>
 
       <p className="site-body mt-6">
-        Pickup is preferred near Schaumburg, IL. Delivery is available — just
-        mention it in your request and we&apos;ll confirm the details.
+        Delivery is available near Schaumburg, IL — just mention your address
+        in your request. Pickup is also an option.
       </p>
     </div>
   );

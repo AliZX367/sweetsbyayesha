@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection
-        eyebrow="Schaumburg, IL • Pickup & delivery options"
+        eyebrow="Schaumburg, IL • Delivery & pickup available"
         heading="Celebrate with something sweet."
         subtext="Made-to-order desserts for birthdays, weddings & every celebration in between — fresh, beautiful, and crafted with halal ingredients near Schaumburg, IL."
         ctaLabel="Order Now"
@@ -139,7 +139,7 @@ export default function Home() {
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              Schaumburg, IL pickup
+              Delivery & pickup available
             </div>
             <div className="flex items-center gap-2 text-sm font-medium text-text/80">
               <svg
@@ -323,7 +323,7 @@ export default function Home() {
                   },
                   {
                     emoji: "📍",
-                    text: "Pickup near Schaumburg, IL or local delivery",
+                    text: "Delivery available near Schaumburg, IL — pickup too",
                   },
                   {
                     emoji: "💬",

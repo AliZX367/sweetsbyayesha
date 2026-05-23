@@ -60,7 +60,7 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-black/5 bg-background shadow-sm">
       <div className="site-container flex items-center justify-between gap-4 py-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Link href="/" className="inline-flex min-w-0 items-center gap-3">
@@ -106,15 +106,15 @@ export function Navbar() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-full border border-black/10 bg-surface p-2 text-text shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
+          className="inline-flex items-center justify-center rounded-full bg-primary p-2.5 text-background shadow-md transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

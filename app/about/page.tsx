@@ -116,12 +116,12 @@ export default function AboutPage() {
                   and flavor-forward recipes.
                 </li>
                 <li className="rounded-2xl bg-surface px-4 py-3">
-                  <span className="font-semibold text-text">Local pickup</span>{" "}
-                  near Schaumburg, IL.
+                  <span className="font-semibold text-text">Delivery available</span>{" "}
+                  discussed when we confirm details.
                 </li>
                 <li className="rounded-2xl bg-surface px-4 py-3">
-                  <span className="font-semibold text-text">Delivery options</span>{" "}
-                  discussed when we confirm details.
+                  <span className="font-semibold text-text">Local pickup</span>{" "}
+                  near Schaumburg, IL.
                 </li>
               </ul>
             </div>
