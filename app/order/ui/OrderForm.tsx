@@ -315,7 +315,7 @@ export function OrderForm() {
     "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-background text-base font-semibold text-text transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-40";
 
   const numberInputClass =
-    "hidden w-20 shrink-0 rounded-2xl border border-black/10 bg-background px-3 py-3 text-center text-sm text-text shadow-sm outline-none [appearance:textfield] focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface sm:block sm:w-24 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none sm:text-base";
+    "w-16 shrink-0 rounded-2xl border border-black/10 bg-background px-2 py-3 text-center text-sm font-semibold text-text shadow-sm outline-none [appearance:textfield] focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface sm:w-24 sm:text-base [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
 
   const minDate = useMemo(() => {
     return parseISO(minDateString);
